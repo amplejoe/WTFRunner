@@ -22,7 +22,7 @@ export default class Game extends Phaser.Scene {
     this.logo = this.add.existing(new Logo(this));
 
     const x_mid = this.cameras.main.width / 2;
-    const y_mid = this.cameras.main.height / 2;
+    // const y_mid = this.cameras.main.height / 2;
 
     // foglabel
     const labelfog = this.add.text(x_mid/2, 400, 'Fog', {
