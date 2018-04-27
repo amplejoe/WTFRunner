@@ -44,6 +44,16 @@ export default class Game extends Phaser.Scene {
     labelchar.setOrigin(0.5, 0.5).setInteractive();
     labelchar.on('pointerup', () => this.scene.start('Chartemp'));
 
+    // charlabel
+    const labelbernd = this.add.text(x_mid*1.5, 400, 'Bernd', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    labelbernd.setOrigin(0.5, 0.5).setInteractive();
+    labelbernd.on('pointerup', () => this.scene.start('Bernd'));
+
   }
 
   /**
