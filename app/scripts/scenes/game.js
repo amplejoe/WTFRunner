@@ -22,7 +22,7 @@ export default class Game extends Phaser.Scene {
     this.logo = this.add.existing(new Logo(this));
 
     const x_mid = this.cameras.main.width / 2;
-    // const y_mid = this.cameras.main.height / 2;
+    const y_mid = this.cameras.main.height / 2;
 
     // foglabel
     const labelfog = this.add.text(x_mid/2, 400, 'Fog', {
@@ -44,7 +44,7 @@ export default class Game extends Phaser.Scene {
     labelchar.setOrigin(0.5, 0.5).setInteractive();
     labelchar.on('pointerup', () => this.scene.start('Chartemp'));
 
-    // charlabel
+    // berndlabel
     const labelbernd = this.add.text(x_mid*1.5, 400, 'Bernd', {
       font: '20px Arial',
       color: 'white',
@@ -53,6 +53,16 @@ export default class Game extends Phaser.Scene {
     });
     labelbernd.setOrigin(0.5, 0.5).setInteractive();
     labelbernd.on('pointerup', () => this.scene.start('Bernd'));
+
+    // tilemap
+    const labeltilemap = this.add.text(x_mid, y_mid, 'Tilemap', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    labeltilemap.setOrigin(0.5, 0.5).setInteractive();
+    labeltilemap.on('pointerup', () => this.scene.start('Tilemaptemp'));
 
   }
 
