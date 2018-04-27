@@ -11,4 +11,6 @@ node_modules/
 !.eslint*
 !.yo-rc.json
 !.editorconfig
-/nbproject/private/
+
+.idea
+.DS_Store
