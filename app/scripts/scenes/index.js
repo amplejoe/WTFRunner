@@ -11,3 +11,4 @@ export {default as Game} from './game';
 export {default as Fogtemp} from './fogtemp';
 export {default as Chartemp} from './chartemp';
 export {default as Title} from './title';
+export {default as Bernd} from './bernd';
