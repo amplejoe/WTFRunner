@@ -20,6 +20,30 @@ export default class Game extends Phaser.Scene {
   create(/* data */) {
     //  TODO: Replace this content with really cool game code here :)
     this.logo = this.add.existing(new Logo(this));
+
+    const x_mid = this.cameras.main.width / 2;
+    const y_mid = this.cameras.main.height / 2;
+
+    // foglabel
+    const labelfog = this.add.text(x_mid/2, 400, 'Fog', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    labelfog.setOrigin(0.5, 0.5).setInteractive();
+    labelfog.on('pointerup', () => this.scene.start('Fogtemp'));
+
+    // charlabel
+    const labelchar = this.add.text(x_mid, 400, 'Char', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    labelchar.setOrigin(0.5, 0.5).setInteractive();
+    labelchar.on('pointerup', () => this.scene.start('Chartemp'));
+
   }
 
   /**

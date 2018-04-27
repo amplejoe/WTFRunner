@@ -8,3 +8,6 @@
 
 export {default as SplashScreen} from './splash-screen';
 export {default as Game} from './game';
+export {default as Fogtemp} from './fogtemp';
+export {default as Chartemp} from './chartemp';
+export {default as Title} from './title';
