@@ -26,8 +26,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     scene.anims.create({
       key: 'run',
-      frames: scene.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
-      frameRate: 10,
+      frames: scene.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
+      frameRate: 15,
       repeat: -1
     });
 
