@@ -25,13 +25,23 @@ export default class Tilemaptemp extends Phaser.Scene {
     });
 
     //  add tilemap to game
-    // let map = this.make.tilemap({key:'desert_tilemap', tileWidth: 32, tileHeight: 32});
-    let map = this.make.tilemap({key:'desert_tilemap'});
-    let tileset = map.addTilesetImage('desert_sprites');
-    // var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
-    var layer = map.createDynamicLayer(0, tileset, 0, 0);
 
-    let zoomFactor = 2.0;
+    // with csv
+    // let map = this.make.tilemap({key:'desert_tilemap', tileWidth: 32, tileHeight: 32});
+    // let map = this.make.tilemap({key:'desert_tilemap'});
+    // let tileset = map.addTilesetImage('desert_sprites');
+    // var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
+    // var layer = map.createDynamicLayer(0, tileset, 0, 0);
+
+    // with json
+    let map = this.add.tilemap('level_1_map');
+    var tileset = map.addTilesetImage('wtf_sheet','level_sprites');
+    let layer = map.createDynamicLayer('Kachelebene 1', tileset, 0, 0);
+
+
+
+
+    let zoomFactor = 0.5;
     layer.setScale(zoomFactor);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels * zoomFactor, map.heightInPixels*zoomFactor);

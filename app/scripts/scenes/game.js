@@ -23,9 +23,10 @@ export default class Game extends Phaser.Scene {
 
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
+    const y_top = 50
 
     // foglabel
-    const labelfog = this.add.text(x_mid/2, 400, 'Fog', {
+    const labelfog = this.add.text(x_mid/2, y_top, 'Fog', {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',
@@ -35,7 +36,7 @@ export default class Game extends Phaser.Scene {
     labelfog.on('pointerup', () => this.scene.start('Fogtemp'));
 
     // charlabel
-    const labelchar = this.add.text(x_mid, 400, 'Char', {
+    const labelchar = this.add.text(x_mid, y_top, 'Char', {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',
@@ -45,7 +46,7 @@ export default class Game extends Phaser.Scene {
     labelchar.on('pointerup', () => this.scene.start('Chartemp'));
 
     // berndlabel
-    const labelbernd = this.add.text(x_mid*1.5, 400, 'Bernd', {
+    const labelbernd = this.add.text(x_mid*1.5, y_top, 'Bernd', {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',
@@ -55,7 +56,7 @@ export default class Game extends Phaser.Scene {
     labelbernd.on('pointerup', () => this.scene.start('Bernd'));
 
     // tilemap
-    const labeltilemap = this.add.text(x_mid, y_mid, 'Tilemap', {
+    const labeltilemap = this.add.text(x_mid/2, y_top*2, 'Tilemap', {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',
@@ -63,6 +64,16 @@ export default class Game extends Phaser.Scene {
     });
     labeltilemap.setOrigin(0.5, 0.5).setInteractive();
     labeltilemap.on('pointerup', () => this.scene.start('Tilemaptemp'));
+
+    // title
+    const titlelabel = this.add.text(x_mid, y_top*2, 'Title', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    titlelabel.setOrigin(0.5, 0.5).setInteractive();
+    titlelabel.on('pointerup', () => this.scene.start('Title'));
 
   }
 
