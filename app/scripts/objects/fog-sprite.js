@@ -9,7 +9,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
    *  @param {number} x - The horizontal coordinate relative to the scene viewport.
    *  @param {number} y - The vertical coordinate relative to the scene viewport.
    */
-  constructor(scene, x, y) {
+  constructor(scene, x, y,speed,lifespan) {
     super(scene, x, y, 'smoke-puff');
 
     //angle in which the emitter emitts particles
@@ -20,10 +20,10 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     this.scene=scene;
     this.particles = scene.add.particles('smoke-puff');
     this.emitter=this.particles.createEmitter({
-      speed: 100, //speed of the particles
+      speed: speed, //speed of the particles
       scale:{start: 1, end:0},
       blendMode:'ADD',
-      lifespan: 10000, //time till the particles vanish
+      lifespan: lifespan, //time till the particles vanish
       angle: {min:0+emmiterAngleMin, max:360-emmiterAngleMax} //angle in which the emitter emitts particles
     });
 
@@ -31,6 +31,9 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     //this.setPosition(x, y);
     this.setOrigin(0.5);
     this.emitter.startFollow(this);
+    this.scene.physics.world.enable(this.emitter);
+    //this.scene.physics.world.enable(this.particles);
+
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
@@ -68,10 +71,12 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
       rotation: { value: this.rotation+rotation, duration:move_duration,ease:'Power2'},
     });
 
-
-
-
-
+  }
+  make_damage(player){
+    var distance=Math.hypot(this.x-player.x, this.y-player.y);
+    var damage=(this.emitter.lifespan/this.emitter.speed)*(1/(distance*distance));
+    return damage;
 
   }
+
 }
