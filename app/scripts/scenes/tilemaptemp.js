@@ -23,6 +23,11 @@ export default class Tilemaptemp extends Phaser.Scene {
       stroke: 'black',
       strokeThickness: 6
     });
+
+    //  add tilemap to game
+    let map = this.make.tilemap({key:'desert_tilemap', tileWidth: 32, tileHeight: 32});
+    let tileset = map.addTilesetImage('desert_sprites');
+    var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
   }
 
   /**
