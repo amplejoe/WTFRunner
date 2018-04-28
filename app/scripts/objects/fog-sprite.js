@@ -89,4 +89,41 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
 
   }
 
+
+  calc_points(points,dt){
+    var pol_function=this.calc_poly(points);
+    var x_values=[];
+    var y_values=[];
+    for (var i=0; i<8 ;i=i+1){
+      x_values[i]=i;
+      y_values[i]=pol_function(i);
+    }
+    return y_values;
+
+
+  }
+
+  calc_poly(points){
+    var n = points.length - 1, p;
+
+    p = function (i, j, x) {
+      if (i === j) {
+        return points[i][1];
+      }
+
+      return ((points[j][0] - x) * p(i, j - 1, x) +
+        (x - points[i][0]) * p(i + 1, j, x)) /
+        (points[j][0] - points[i][0]);
+    };
+
+    return function (x) {
+      if (points.length === 0) {
+        return 0;
+      }
+      return p(0, n, x);
+    };
+  }
+
+
+
 }
