@@ -25,9 +25,38 @@ export default class Tilemaptemp extends Phaser.Scene {
     });
 
     //  add tilemap to game
-    let map = this.make.tilemap({key:'desert_tilemap', tileWidth: 32, tileHeight: 32});
+    // let map = this.make.tilemap({key:'desert_tilemap', tileWidth: 32, tileHeight: 32});
+    let map = this.make.tilemap({key:'desert_tilemap'});
     let tileset = map.addTilesetImage('desert_sprites');
-    var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
+    // var layer = map.createStaticLayer(0, tileset, 0, 0); // layer index, tileset, x, y
+    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+
+    let zoomFactor = 2.0;
+    layer.setScale(zoomFactor);
+
+    this.cameras.main.setBounds(0, 0, map.widthInPixels * zoomFactor, map.heightInPixels*zoomFactor);
+    // this.cameras.main.setZoom(zoomFactor);
+
+
+    var cursors = this.input.keyboard.createCursorKeys();
+    var controlConfig = {
+      camera: this.cameras.main,
+      left: cursors.left,
+      right: cursors.right,
+      up: cursors.up,
+      down: cursors.down,
+      speed: 0.5
+    };
+    this.controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+
+    var help = this.add.text(16, 16, 'Arrows to scroll', {
+      fontSize: '18px',
+      padding: { x: 10, y: 5 },
+      backgroundColor: '#000000',
+      fill: '#ffffff'
+    });
+    help.setScrollFactor(0);
+
   }
 
   /**
@@ -37,6 +66,7 @@ export default class Tilemaptemp extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
-  update(/* t, dt */) {
+  update(t, dt) {
+    this.controls.update(dt);
   }
 }
