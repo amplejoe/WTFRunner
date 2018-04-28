@@ -13,8 +13,9 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'smoke-puff');
 
     //angle in which the emitter emitts particles
-    var emmiterAngleMax=360-45;
+    var emmiterAngleMax=45;
     var emmiterAngleMin=45;
+    this.setOrigin(0.5);
 
     this.scene=scene;
     this.particles = scene.add.particles('smoke-puff');
@@ -23,7 +24,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
       scale:{start: 1, end:0},
       blendMode:'ADD',
       lifespan: 10000, //time till the particles vanish
-      angle: {min:emmiterAngleMin, max:emmiterAngleMax} //angle in which the emitter emitts particles
+      angle: {min:0+emmiterAngleMin, max:360-emmiterAngleMax} //angle in which the emitter emitts particles
     });
 
 
@@ -47,20 +48,27 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     });
   }
 
-  move_direction(x_pointgoal,y_pointgoal,stepwidth,duration){
+  move_direction(x_pointgoal,y_pointgoal,move_duration,rotation_duration){
     var dx=x_pointgoal-this.x;
     var dy=y_pointgoal-this.y;
-    var length_pointer=Math.sqrt((x_pointgoal*x_pointgoal)+(y_pointgoal*y_pointgoal));
-    var percentage=stepwidth/length_pointer;
-    dx=dx*percentage;
-    dy=dy*percentage;
+    var length_pointer=Math.sqrt((dx*dx)+(dy*dy));
 
+
+
+    var rotation=-Math.atan2((dy/length_pointer)-Math.sin(this.rotation),(dx/length_pointer)-Math.cos(this.rotation));
+
+
+    //console.log(this.rotation);
+    //console.log(rotation);
     var tween = this.scene.tweens.add({
       targets: this,
-      ease: 'Sine.easeInOut',
-      x: { value: this.x+dx, duration:duration,ease:'Power2'},
-      y: { value: this.y+dy, duration:duration,ease:'Power2'}
+      ease: 'Power2',
+      x: { value: this.x+dx, duration:move_duration,ease:'Power2'},
+      y: { value: this.y+dy, duration:move_duration,ease:'Power2'},
+      rotation: { value: this.rotation+rotation, duration:move_duration,ease:'Power2'},
     });
+
+    this.emitter.setAngle()
 
 
 
