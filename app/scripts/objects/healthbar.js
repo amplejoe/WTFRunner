@@ -21,8 +21,23 @@ export default class Healthbar {
     var rect = new Phaser.Geom.Rectangle(x, y, w, h);
     this.healthBarBack.fillRectShape(rect);
 
-    this.music1 = this.scene.sound.add('music_1');
+    this.music1 = this.scene.sound.add('music1');
     this.music1.play({ loop: true });
+    this.music2 = this.scene.sound.add('music2');
+    this.music2.play({ loop: true });
+    this.music3 = this.scene.sound.add('music3');
+    this.music3.play({ loop: true });
+    this.music4 = this.scene.sound.add('music4');
+    this.music4.play({ loop: true });
+    this.music5 = this.scene.sound.add('music5');
+    this.music5.play({ loop: true });
+
+    this.music1.mute = false;
+    this.music2.mute = true;
+    this.music3.mute = true;
+    this.music4.mute = true;
+    this.music5.mute = true;
+
 
     this.updateHealthBar();
 
@@ -56,7 +71,42 @@ export default class Healthbar {
     this.healthBar.fillRectShape(rect);
 
     // this.music1.rate = 1 - (1-relHealth)/3;
-    this.music1.detune = (1 - relHealth) * -400;
+    // this.music1.detune = (1 - relHealth) * -400;
+
+    if (relHealth <= 0.2) {
+      this.music1.mute = true;
+      this.music2.mute = true;
+      this.music3.mute = true;
+      this.music4.mute = true;
+      this.music5.mute = false;
+    } else if (relHealth <= 0.4) {
+      this.music1.mute = true;
+      this.music2.mute = true;
+      this.music3.mute = true;
+      this.music4.mute = false;
+      this.music5.mute = true;
+    } else if (relHealth <= 0.6) {
+      this.music1.mute = true;
+      this.music2.mute = true;
+      this.music3.mute = false;
+      this.music4.mute = true;
+      this.music5.mute = true;
+    } else if (relHealth <= 0.8) {
+      this.music1.mute = true;
+      this.music2.mute = false;
+      this.music3.mute = true;
+      this.music4.mute = true;
+      this.music5.mute = true;
+    } else {
+      this.music1.mute = false;
+      this.music2.mute = true;
+      this.music3.mute = true;
+      this.music4.mute = true;
+      this.music5.mute = true;
+    }
+
+
+
   }
 
     /* accepts parameters
