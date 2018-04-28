@@ -86,6 +86,6 @@ export default class Game extends Phaser.Scene {
    *  @param {number} dt Time elapsed since last update.
    */
   update(/* t, dt */) {
-    this.logo.update();
+    //this.logo.update();
   }
 }

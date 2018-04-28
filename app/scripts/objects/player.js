@@ -1,48 +1,37 @@
-export default class Chartemp extends Phaser.Scene {
+export default class Player extends Phaser.GameObjects.Sprite {
   /**
-   *  My custom scene.
+   *  My custom sprite.
    *
-   *  @extends Phaser.Scene
+   *  @constructor
+   *  @class Player
+   *  @extends Phaser.GameObjects.Sprite
+   *  @param {Phaser.Scene} scene - The scene that owns this sprite.
+   *  @param {number} x - The horizontal coordinate relative to the scene viewport.
+   *  @param {number} y - The vertical coordinate relative to the scene viewport.
    */
-  constructor() {
-    super({key: 'Chartemp'});
-  }
+  constructor(scene, x, y) {
+    super(scene, x, y, 'player');
 
-  /**
-   *  Responsible for setting up game objects on the screen.
-   *
-   *  @protected
-   *  @param {object} [data={}] - Initialization parameters.
-   */
+    //  Add this game object to the owner scene.
+    scene.children.add(this);
+  }
   
-  
-  
-  
-  create(/* data */) {
-    
+  create(){
+      
     this.initPlayer();
     this.initObject();
     this.initPowerUp();
     this.initWorld();
+    this.initInput();
     
     this.bombPickedUp = false;
     this.powerUpPickedUp = false;
-    this.cursors = this.input.keyboard.createCursorKeys(); 
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    
-  }
-
-  /**
-   *  Handles updates to game logic, physics and game objects.
-   *
-   *  @protected
-   *  @param {number} t - Current internal clock time.
-   *  @param {number} dt - Time elapsed since last update.
-   */
-  update() {
       
-    this.updatePlayerPosition();
+  }
+  
+  update(){
+      
+      this.updatePlayerPosition();
       
   }
   
@@ -75,6 +64,14 @@ export default class Chartemp extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, this.cameras.main.width, this.cameras.main.height);  
       
   
+  }
+  
+  initInput(){
+      
+    this.cursors = this.input.keyboard.createCursorKeys(); 
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+      
   }
   
   checkCollision(){
@@ -201,5 +198,5 @@ export default class Chartemp extends Phaser.Scene {
     
       
   }
-  
+        
 }
