@@ -123,3 +123,11 @@ export {title, version, url} from '@/../../package.json';
  *  Export created game scenes.
  */
 export const scene = Object.values(scenes);
+
+
+/**
+ *  WTFRunner settings
+ */
+export const DEBUG = true;
+export const ZOOM_FACTOR = 0.5;
+export const PLAYER_VELOCITY = 300;

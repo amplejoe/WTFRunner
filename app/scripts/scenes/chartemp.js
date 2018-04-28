@@ -1,3 +1,5 @@
+import Player from '@/objects/player';
+
 export default class Chartemp extends Phaser.Scene {
   /**
    *  My custom scene.
@@ -13,45 +15,55 @@ export default class Chartemp extends Phaser.Scene {
    *
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
-   */
+   */ 
   
-  
-  
-  
-  create(/* data */) {
-    
+   create(){
+      
     this.initPlayer();
-    this.initObject();
-    this.initPowerUp();
+    //this.initObject();
+    //this.initPowerUp();
     this.initWorld();
+    this.initInput();
     
     this.bombPickedUp = false;
     this.powerUpPickedUp = false;
-    this.cursors = this.input.keyboard.createCursorKeys(); 
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     
   }
-
-  /**
-   *  Handles updates to game logic, physics and game objects.
-   *
-   *  @protected
-   *  @param {number} t - Current internal clock time.
-   *  @param {number} dt - Time elapsed since last update.
-   */
-  update() {
+  
+  update(){
       
-    this.updatePlayerPosition();
+
+      this.running = this.character.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
+      
+      if(this.running){
+          
+          this.physics.velocityFromAngle(this.character.body.rotation - 90, 250, this.character.body.velocity);
+               
+      }else{
+          
+          this.physics.velocityFromAngle(this.character.body.rotation - 90, 0, this.character.body.velocity);
+          
+      }
+      
+      //checkCollision();
       
   }
   
   initPlayer(){
       
-    this.player = this.physics.add.sprite(50, 50, 'logo', 4).setScale(0.4);
-    this.player.setCollideWorldBounds(true);
-    this.player.body.setGravityY(0);
-      
+    this.character = this.add.existing(new Player(this, 300 , 300));
+    this.physics.add.sprite(this.character);
+    this.physics.world.enable(this.character);
+    this.character.body.setCollideWorldBounds(true);
+    this.character.body.setGravity(0);
+    
+    this.anims.create({
+    key: 'run',
+    frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1
+    });
+    
   }
   
   initObject(){
@@ -69,7 +81,7 @@ export default class Chartemp extends Phaser.Scene {
     this.powerUp.body.setGravity(0);
     
   }
-  
+ 
   initWorld(){
       
     this.physics.world.setBounds(0, 0, this.cameras.main.width, this.cameras.main.height);  
@@ -77,10 +89,18 @@ export default class Chartemp extends Phaser.Scene {
   
   }
   
+  initInput(){
+      
+    this.cursors = this.input.keyboard.createCursorKeys(); 
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+      
+  }
+  
   checkCollision(){
       
-      this.collidedWithBomb = this.physics.collide(this.player , this.object);
-      this.collidedWithPowerUp = this.physics.collide(this.player, this.powerUp);
+      this.collidedWithBomb = this.physics.collide(this.character , this.object);
+      this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
       
       if(this.collidedWithBomb){
           
@@ -97,109 +117,5 @@ export default class Chartemp extends Phaser.Scene {
       }
       
   }
-  
-  updatePlayerPosition(){ 
-    
-    this.checkCollision();
-    
-    if(this.keySpace.isDown && (this.bombPickedUp === true)){
-         
-      
-      this.bombPickedUp = false;
-                
-    }  
-    
-    if(this.keyEnter.isDown && (this.powerUpPickedUp === true)){
         
-      this.player.rotation = 1;
-      this.powerUpPickedUp = false;
-        
-    }
-     
-    if(this.cursors.left.isDown){ // WHEN LEFT IS PRESSED
-         
-      this.player.setVelocityX(-150);
-      this.player.setVelocityY(0);
-      
-      if(this.cursors.up.isDown){ // .. and up is pressed
-      
-        this.player.setVelocityY(-150);
-      
-      }
-      if(this.cursors.down.isDown){ // .. and down is pressed
-          
-        this.player.setVelocityY(150);
-              
-      }
-      
-    // ######################################
-    
-    }else if(this.cursors.right.isDown){ // WHEN RIGHT IS PRESSED
-         
-      this.player.setVelocityX(150);
-      this.player.setVelocityY(0);
-      
-      if(this.cursors.up.isDown){
-          
-        this.player.setVelocityY(-150); 
-          
-      }
-      
-      if(this.cursors.down.isDown){
-          
-        this.player.setVelocityY(150);
-      
-      }
-      
-    // ######################################    
-      
-    }else if(this.cursors.up.isDown){ // WHEN UP IS PRESSED
-         
-      this.player.setVelocityY(-150);
-      this.player.setVelocityX(0);
-      
-      if(this.cursors.left.isDown){
-        
-        this.player.setVelocityX(-150);              
-          
-      }
-      
-      if(this.cursors.right.isDown){
-         
-        this.player.setVelocityX(150);            
-          
-      }
-    
-    // ######################################            
-                
-    }else if(this.cursors.down.isDown){ // WHEN DOWN IS PRESSED 
-         
-      this.player.setVelocityY(150);
-      this.player.setVelocityX(0);
-      
-      if(this.cursors.left.isDown){
-        
-        this.player.setVelocityX(-150);              
-          
-      }
-      
-      if(this.cursors.right.isDown){
-         
-        this.player.setVelocityX(150);            
-          
-      }
-        
-    }else{ 
-              
-      this.player.setVelocityX(0);
-      this.player.setVelocityY(0);
-         
-    }
-    
-    
-    
-    
-      
-  }
-  
 }
