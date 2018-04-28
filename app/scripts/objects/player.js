@@ -1,5 +1,6 @@
 //  Imports
 import * as config from '@/config';
+import Healthbar from '@/objects/healthbar';
 
 export default class Player extends Phaser.GameObjects.Sprite {
   /**
@@ -23,12 +24,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
+    this.healthbar = new Healthbar(scene,scene.cameras.main.width - 70, 20, 40, 200);
+    this.scene = scene;
+
+    this.initControls()
 
   }
 
   recieveBomb(){
 
-      this.recievedBomb = true;
+    this.recievedBomb = true;
 
   }
 
@@ -97,10 +102,28 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     }
 
+    return running;
 
+  }
 
-   return running;
+  initControls()
+  {
+    this.cursors = this.scene.input.keyboard.createCursorKeys();
+    this.keySpace = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.keyEnter = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
+  }
+
+  update()
+  {
+    // player movement
+    this.running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
+
+    if(this.running){
+      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
+    }else{
+      this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);
+    }
   }
 
 }

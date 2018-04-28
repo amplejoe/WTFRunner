@@ -2,6 +2,7 @@
 import * as config from '@/config';
 import Player from '@/objects/player';
 
+
 export default class Level extends Phaser.Scene {
   /**
      *  My custom scene.
@@ -50,9 +51,6 @@ export default class Level extends Phaser.Scene {
     // };
     // this.controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
 
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
   }
 
   setupDebug()
@@ -64,6 +62,14 @@ export default class Level extends Phaser.Scene {
       fill: '#ffffff'
     });
     help.setScrollFactor(0);
+
+    this.input.keyboard.on('keydown_A', (event) => {
+        this.character.healthbar.hurt(5);
+    });
+
+    this.input.keyboard.on('keydown_S', (event) => {
+        this.character.healthbar.heal(5);
+    });
   }
 
   setupMap()
@@ -138,15 +144,7 @@ export default class Level extends Phaser.Scene {
      */
   update(t, dt) {
     // this.controls.update(dt);
-
-    // player movement
-    this.running = this.character.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
-
-    if(this.running){
-      this.physics.velocityFromAngle(this.character.body.rotation - 90, config.PLAYER_VELOCITY, this.character.body.velocity);
-    }else{
-      this.physics.velocityFromAngle(this.character.body.rotation - 90, 0, this.character.body.velocity);
-    }
+    this.character.update();
 
   }
 }
