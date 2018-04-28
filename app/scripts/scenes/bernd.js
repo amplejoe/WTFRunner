@@ -65,11 +65,11 @@ export default class Bernd extends Phaser.Scene {
 
 
     this.input.keyboard.on('keydown_A', (event) => {
-        this.hurt(1);
+      this.hurt(1);
     });
 
     this.input.keyboard.on('keydown_S', (event) => {
-        this.heal(1);
+      this.heal(1);
     });
 
 
@@ -77,6 +77,8 @@ export default class Bernd extends Phaser.Scene {
 
     this.healthBarBack = this.add.graphics({ fillStyle: { color: 0x0aaf2e } });
     this.healthBar = this.add.graphics({ fillStyle: { color: 0x7df433 } });
+    this.healthBarBack.setScrollFactor(0);
+    this.healthBar.setScrollFactor(0);
 
     var rect = new Phaser.Geom.Rectangle(this.cameras.main.width - 50, this.cameras.main.height - 120, 30, 100);
     this.healthBarBack.fillRectShape(rect);
