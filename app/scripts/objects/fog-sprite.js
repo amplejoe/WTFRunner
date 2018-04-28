@@ -27,7 +27,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
       angle: {min:0+emmiterAngleMin, max:360-emmiterAngleMax} //angle in which the emitter emitts particles
     });
 
-
+    // console.log(this.emitter.lifespan.propertyValue);
     //this.setPosition(x, y);
     this.setOrigin(0.5);
     this.emitter.startFollow(this);
@@ -74,8 +74,18 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
   }
   make_damage(player){
     var distance=Math.hypot(this.x-player.x, this.y-player.y);
-    var damage=(this.emitter.lifespan/this.emitter.speed)*(1/(distance*distance));
-    return damage;
+    var damage = 0;
+    if (distance <= 0) damage = 100;
+    else
+    {
+      damage=(this.emitter.lifespan.propertyValue)*(1/(distance*distance+1));
+    }
+    if (damage > 100) damage = 100;
+    // console.log("damage" + damage);
+    // console.log("distance" + distance);
+    // console.log("espeed" + this.emitter.speed);
+    player.healthbar.hurt(damage);
+    // return damage;
 
   }
 

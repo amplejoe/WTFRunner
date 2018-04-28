@@ -1,6 +1,7 @@
 //  Imports
 import * as config from '@/config';
 import Player from '@/objects/player';
+import FogSprite from '@/objects/fog-sprite';
 
 
 export default class Level extends Phaser.Scene {
@@ -33,6 +34,10 @@ export default class Level extends Phaser.Scene {
     this.initPhysics();
     this.setupCameras();
     this.setupControls();
+
+    this.fog = new FogSprite(this, 200,200,100, 10000);
+    this.fog.move_direction(this.character.x, this.character.y, 2000);
+    this.fog.make_damage(this.character);
 
     if (config.DEBUG) this.setupDebug();
 
