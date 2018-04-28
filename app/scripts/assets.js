@@ -63,4 +63,22 @@ export const gameAssets = [{
      frameWidth : 128,
      frameHeight : 128
    }
+},{
+   // the spin for the character
+   key: 'player_spin',
+   type: 'spritesheet',
+   url: 'char/char_spin.png',
+   config: {
+     frameWidth : 128,
+     frameHeight : 128
+   }
+},{
+   // powerUp for the character
+   key: 'powerUp',
+   type: 'spritesheet',
+   url: 'char/spin_item.png',
+   config: {
+     frameWidth : 128,
+     frameHeight : 128
+   } 
 }];

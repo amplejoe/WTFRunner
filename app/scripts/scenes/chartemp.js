@@ -34,6 +34,7 @@ export default class Chartemp extends Phaser.Scene {
       
 
       this.running = this.character.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
+     
       
       if(this.running){
           
@@ -44,7 +45,7 @@ export default class Chartemp extends Phaser.Scene {
           this.physics.velocityFromAngle(this.character.body.rotation - 90, 0, this.character.body.velocity);
           
       }
-      
+     
       this.checkCollision();
       
   }
@@ -78,14 +79,23 @@ export default class Chartemp extends Phaser.Scene {
     this.object = this.physics.add.sprite(100, 400, 'logo', 4).setScale(0.25);
     this.object.setCollideWorldBounds(true);
     this.object.body.setGravity(0);
-            
+    
   }
   
   initPowerUp(){
       
-    this.powerUp = this.physics.add.sprite(100, 250, 'logo', 4).setScale(0.25);
+    this.powerUp = this.physics.add.sprite(100, 250, 'powerUp', 4).setScale(0.5);
     this.powerUp.setCollideWorldBounds(true);
     this.powerUp.body.setGravity(0);
+    
+    this.anims.create({
+    key: 'powerUpItem',
+    frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3 }),
+    frameRate: 7,
+    repeat: -1
+    }); 
+    
+    this.powerUp.anims.play('powerUpItem',true);
     
   }
  
@@ -118,10 +128,16 @@ export default class Chartemp extends Phaser.Scene {
       
       if(this.collidedWithPowerUp){
           
-        this.powerUpPickedUp = true;
+        this.character.recievePowerUp();
         this.powerUp.destroy();
           
       }
+      
+  }
+  
+  stopSpinning(){
+      
+      
       
   }
         
