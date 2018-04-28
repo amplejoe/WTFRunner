@@ -23,4 +23,13 @@ export const splashScreenAssets = [{
 export const gameAssets = [{
   key: 'logo',
   type: 'image'
+}, {
+  key: 'desert_tilemap',
+  type: 'tilemapCSV',
+  url: 'tilemaptmp/desert_level.csv'
+}, {
+  key: 'desert_sprites',
+  type: 'spritesheet',
+  url: 'tilemaptmp/sprites_no_padding.png',
+  config: {frameWidth: 32, frameHeight: 32}
 }];
