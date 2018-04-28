@@ -31,13 +31,13 @@ export default class Healthbar {
     this.music4.play({ loop: true });
     this.music5 = this.scene.sound.add('music5');
     this.music5.play({ loop: true });
+    this.gameoverSound = this.scene.sound.add('gameoverSound');
 
     this.music1.mute = false;
     this.music2.mute = true;
     this.music3.mute = true;
     this.music4.mute = true;
     this.music5.mute = true;
-
 
     this.updateHealthBar();
 
@@ -59,6 +59,12 @@ export default class Healthbar {
   }
 
   gameOver() {
+      this.music1.stop();
+      this.music2.stop();
+      this.music3.stop();
+      this.music4.stop();
+      this.music5.stop();
+      this.gameoverSound.play();
       alert("GAME OVER");
   }
 
