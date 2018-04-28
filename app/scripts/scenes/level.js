@@ -1,6 +1,7 @@
 //  Imports
 import * as config from '@/config';
 import Player from '@/objects/player';
+import Playeralt from '@/objects/playeralt';
 import FogSprite from '@/objects/fog-sprite';
 
 
@@ -32,12 +33,26 @@ export default class Level extends Phaser.Scene {
     this.setupMap();
     this.initPlayer();
     this.initPhysics();
+
+    this.layerP.setScale(config.ZOOM_FACTOR);
+    this.layerG.setScale(config.ZOOM_FACTOR);
+
+
+    // init animated tiles (DONT SCALE AFTER!!)
+    this.sys.animatedTiles.init(this.map);
+    // resume(layerindex, mapindex)
+    this.sys.animatedTiles.resume(0,0);
+    this.sys.animatedTiles.updateAnimatedTiles();
+
+
+
     this.setupCameras();
     this.setupControls();
 
-    this.fog = new FogSprite(this, 200,200,100, 10000);
-    this.fog.move_direction(this.character.x, this.character.y, 2000);
-    this.fog.make_damage(this.character);
+    // this.fog = new FogSprite(this, 200,200,100, 10000);
+    // this.fog.move_direction(this.character.x, this.character.y, 2000);
+    // this.fog.move_direction(300, 300, 2000);
+    // this.fog.make_damage(this.character);
 
     if (config.DEBUG) this.setupDebug();
 
@@ -88,14 +103,13 @@ export default class Level extends Phaser.Scene {
     // with json
     this.map = this.make.tilemap({key: 'level_1_map'});
     this.tileset = this.map.addTilesetImage('wtf_sheet','level_sprites');
-    this.layer = this.map.createDynamicLayer('start', this.tileset, 0, 0);
 
-    // init animated tiles
-    // this.sys.animatedTiles.init(this.map);
-    // this.sys.animatedTiles.resume(0,0);
-    // this.sys.animatedTiles.updateAnimatedTiles();
+    this.layerG = this.map.createDynamicLayer('ground', this.tileset, 0, 0);
+    this.layerP = this.map.createDynamicLayer('start', this.tileset, 0, 0);
 
-    this.layer.setScale(config.ZOOM_FACTOR);
+
+
+
     // console.log(tileset);
     // console.log(this.map.widthInPixels);
     // console.log(this.map.widthInPixels * config.ZOOM_FACTOR);
@@ -110,19 +124,26 @@ export default class Level extends Phaser.Scene {
 
   initPlayer(){
 
-    this.character = this.add.existing(new Player(this, 100 , 100));
+    this.character = this.add.existing(new Player(this, 0 , 0));
+    this.character.x = this.character.width*config.PLAYER_SCALE * 4;
+    this.character.y = this.character.width*config.PLAYER_SCALE * 10;
+    console.log(this.character);
 
   }
 
   initPhysics(){
     //  this.tileset.tileWidth, this.tileset.tileHeight
     this.physics.world.setBounds(0, 0, this.map.widthInPixels * config.ZOOM_FACTOR, this.map.heightInPixels * config.ZOOM_FACTOR);
-    this.layer.setCollisionByProperty({ collides: true });
+    this.layerP.setCollisionByProperty({ collides: true });
 
     //  This isn't totally accurate, but it'll do for now
-    // this.map.setCollisionBetween(54, 83);
+    // this.map.setCollisionBetween(1, 999);
     // this.map.setCollisionbyExlusion(56);
-    this.physics.add.collider(this.character, this.layer);
+    //[63,64,78,77]
+    let colltiles = [1,2,3,4,16,17,18,19,33,34,48,49,91,92,93,94,106,107,108,109,121,122,123,124];
+    this.map.setCollision(colltiles, true, this.layerP);
+    this.physics.add.collider(this.character, this.layerP);
+    //this.physics.collide(this.character, this.layerP);
   }
 
   drawDebug ()

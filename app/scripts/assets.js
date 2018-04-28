@@ -96,5 +96,5 @@ export const gameAssets = [{
    config: {
      frameWidth : 128,
      frameHeight : 128
-   } 
+   }
 }];

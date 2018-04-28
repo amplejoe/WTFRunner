@@ -2,12 +2,12 @@
 import * as config from '@/config';
 import Healthbar from '@/objects/healthbar';
 
-export default class Player extends Phaser.GameObjects.Sprite {
+export default class Playeralt extends Phaser.GameObjects.Sprite {
   /**
    *  My custom sprite.
    *
    *  @constructor
-   *  @class Player
+   *  @class Playeralt
    *  @extends Phaser.GameObjects.Sprite
    *  @param {Phaser.Scene} scene - The scene that owns this sprite.
    *  @param {number} x - The horizontal coordinate relative to the scene viewport.
@@ -16,13 +16,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
 
+    console.log(scene.impact);
+    scene.impact.world.enable(this);
 
-    scene.physics.world.enable(this);
-    this.body.setCollideWorldBounds(true);
-    this.body.setGravity(0);
+    this.setMaxVelocity(300, 400).setFriction(800, 0);
+    this.body.accelGround = 1200;
+    this.body.accelAir = 600;
+    this.body.jumpSpeed = 300;
+
+    // this.body.setCollideWorldBounds(true);
+    // this.body.setGravity(0);
     // this.body.setScale(config.ZOOM_FACTOR);
 
-    this.setScale(config.PLAYER_SCALE);
+    this.setScale(config.ZOOM_FACTOR);
 
     scene.anims.create({
       key: 'run',

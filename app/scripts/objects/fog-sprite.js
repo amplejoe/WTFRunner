@@ -94,7 +94,8 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     var pol_function=this.calc_poly(points);
     var x_values=[];
     var y_values=[];
-    for (var i=0; i<8 ;i=i+1){
+    var max_vals_x = 8;
+    for (var i=0; i<max_vals_x ;i=i+dt){
       x_values[i]=i;
       y_values[i]=pol_function(i);
     }
