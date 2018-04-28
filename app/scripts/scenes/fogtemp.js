@@ -34,6 +34,14 @@ export default class Fogtemp extends Phaser.Scene {
 
     this.fog_sprite1=this.add.existing(new FogSprite(this,x_mid,y_mid));
     this.fog_sprite1.move_step(100,100,4000);
+
+
+    this.input.on('pointerdown', function (pointer) {
+
+      this.fog_sprite1.move_direction(pointer.x,pointer.y,100,3000);
+
+    }, this);
+
     /*
     var particles = this.add.particles('smoke');
     this.destX=x_mid+400;
@@ -86,23 +94,15 @@ export default class Fogtemp extends Phaser.Scene {
 
   }
 
-  scaleSort(a, b) {
 
-    if (a.scale.x < b.scale.x)
-    {
-      return -1;
-    }
-    else if (a.scale.x > b.scale.x)
-    {
-      return 1;
-    }
-    else
-    {
-      return 0;
-    }
 
+
+
+
+  listener(pointer){
+    var image = this.add.image(pointer.x, pointer.y, 'logo');
+    //this.fog_sprite1.move_direction(pointer.x,pointer.y,100,3000);
   }
-
 
 
 
