@@ -75,6 +75,16 @@ export default class Game extends Phaser.Scene {
     titlelabel.setOrigin(0.5, 0.5).setInteractive();
     titlelabel.on('pointerup', () => this.scene.start('Title'));
 
+    // level
+    const levellabel = this.add.text(x_mid*1.5, y_top*2, 'Level', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    levellabel.setOrigin(0.5, 0.5).setInteractive();
+    levellabel.on('pointerup', () => this.scene.start('Level'));
+
   }
 
   /**

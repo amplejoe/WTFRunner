@@ -54,4 +54,13 @@ export const gameAssets = [{
   key: 'music_1',
   type: 'audio',
   url: 'audio/Digitize1.mp3'
+},{
+  // character / player
+   key: 'player',
+   type: 'spritesheet',
+   url: 'char/char.png',
+   config: {
+     frameWidth : 128,
+     frameHeight : 128
+   }
 }];
