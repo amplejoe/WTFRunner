@@ -9,6 +9,13 @@
 import * as scenes from '@/scenes';
 
 /**
+ *  WTFRunner settings
+ */
+export const DEBUG = true;
+export const ZOOM_FACTOR = 0.5;
+export const PLAYER_VELOCITY = 300;
+
+/**
  *  Game canvas width.
  */
 export const width = 1024;
@@ -97,7 +104,8 @@ export const physics = {
    *  This engine becomes available under a `impact` property on game scenes.
    */
   arcade:  {
-    gravity: 100
+    gravity: 100,
+    debug: DEBUG
   }
 };
 
@@ -123,11 +131,3 @@ export {title, version, url} from '@/../../package.json';
  *  Export created game scenes.
  */
 export const scene = Object.values(scenes);
-
-
-/**
- *  WTFRunner settings
- */
-export const DEBUG = true;
-export const ZOOM_FACTOR = 0.5;
-export const PLAYER_VELOCITY = 300;

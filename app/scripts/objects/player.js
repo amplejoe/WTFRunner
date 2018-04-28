@@ -16,7 +16,20 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
 
+
+    scene.physics.world.enable(this);
+    this.body.setCollideWorldBounds(true);
+    this.body.setGravity(0);
+    // this.body.setScale(config.ZOOM_FACTOR);
+
     this.setScale(config.ZOOM_FACTOR);
+
+    scene.anims.create({
+      key: 'run',
+      frames: scene.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
 
     this.recievedBomb = false;
 

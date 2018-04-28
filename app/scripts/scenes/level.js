@@ -102,38 +102,33 @@ export default class Level extends Phaser.Scene {
 
   initPlayer(){
 
-    this.character = this.add.existing(new Player(this, 100 , 100));
-    this.physics.add.sprite(this.character);
-    this.physics.world.enable(this.character);
-    this.character.body.setCollideWorldBounds(true);
-    this.character.body.setGravity(0);
+    this.character = this.add.existing(new Player(this, 100 , 100));    
 
-    this.anims.create({
-      key: 'run',
-      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
   }
 
   initPhysics(){
-    this.physics.world.setBounds(0, 0, (this.map.widthInPixels + this.tileset.tileWidth) * config.ZOOM_FACTOR, (this.map.heightInPixels+ this.tileset.tileHeight) * config.ZOOM_FACTOR);
+    //  this.tileset.tileWidth, this.tileset.tileHeight
+    this.physics.world.setBounds(0, 0, this.map.widthInPixels * config.ZOOM_FACTOR, this.map.heightInPixels * config.ZOOM_FACTOR);
+    this.layer.setCollisionByProperty({ collides: true });
+
+    this.map.setCollisionBetween(54, 83);
+    this.physics.add.collider(this.character, this.layer);
   }
 
 
-  checkCollision(){
-    this.collidedWithBomb = this.physics.collide(this.character , this.object);
-    this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
-    if(this.collidedWithBomb){
-      this.bombPickedUp = true;
-      this.object.destroy();
-    }
-
-    if(this.collidedWithPowerUp){
-      this.powerUpPickedUp = true;
-      this.powerUp.destroy();
-    }
-  }
+  // checkCollision(){
+  //   this.collidedWithBomb = this.physics.collide(this.character , this.object);
+  //   this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
+  //   if(this.collidedWithBomb){
+  //     this.bombPickedUp = true;
+  //     this.object.destroy();
+  //   }
+  //
+  //   if(this.collidedWithPowerUp){
+  //     this.powerUpPickedUp = true;
+  //     this.powerUp.destroy();
+  //   }
+  // }
 
   /**
      *  Handles updates to game logic, physics and game objects.
