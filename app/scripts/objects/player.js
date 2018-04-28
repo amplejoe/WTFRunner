@@ -54,10 +54,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     var running = false;
 
-    if(keySpace.isDown && (this.bombPickedUp === true)){
+    if(keySpace.isDown && (this.recievedBomb === true)){
 
-      this.setCircle(150);
-      this.bombPickedUp = false;
+      this.recievedBomb = false;
 
     }
 
