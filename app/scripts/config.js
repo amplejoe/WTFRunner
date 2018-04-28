@@ -13,8 +13,8 @@ import * as scenes from '@/scenes';
  */
 export const DEBUG = true;
 export const ZOOM_FACTOR = 1.0;
-export const PLAYER_SCALE = 0.25;
-export const PLAYER_VELOCITY = 500;
+export const PLAYER_SCALE = 0.35;
+export const PLAYER_VELOCITY = 450;
 
 /**
  *  Game canvas width.

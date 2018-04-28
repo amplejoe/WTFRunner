@@ -49,10 +49,11 @@ export default class Level extends Phaser.Scene {
     this.setupCameras();
     this.setupControls();
 
-    // this.fog = new FogSprite(this, 200,200,100, 10000);
-    // this.fog.move_direction(this.character.x, this.character.y, 2000);
+    this.fog = new FogSprite(this, 200,200,100, 10000);
+
     // this.fog.move_direction(300, 300, 2000);
-    // this.fog.make_damage(this.character);
+    this.fog.make_damage(this.character);
+    this.fogTimeout = 2000;
 
     if (config.DEBUG) this.setupDebug();
 
@@ -126,8 +127,8 @@ export default class Level extends Phaser.Scene {
 
     this.character = this.add.existing(new Player(this, 0 , 0));
     this.character.x = this.character.width*config.PLAYER_SCALE * 4;
-    this.character.y = this.character.width*config.PLAYER_SCALE * 10;
-    console.log(this.character);
+    this.character.y = this.character.width*config.PLAYER_SCALE * 8;
+    // console.log(this.character);
 
   }
 
@@ -185,6 +186,15 @@ export default class Level extends Phaser.Scene {
   update(t, dt) {
     // this.controls.update(dt);
     this.character.update();
+
+    this.fogTimeout -= dt;
+    if (this.fogTimeout < 0)
+    {
+      this.fog.update();
+      this.fogTimeout = 2000;
+      this.fog.move_direction(this.character.x, this.character.y, 2000);
+    }
+
 
   }
 }
