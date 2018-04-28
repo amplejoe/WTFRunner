@@ -22,11 +22,14 @@ export default class Chartemp extends Phaser.Scene {
     
     this.initPlayer();
     this.initObject();
+    this.initPowerUp();
     this.initWorld();
     
     this.bombPickedUp = false;
+    this.powerUpPickedUp = false;
     this.cursors = this.input.keyboard.createCursorKeys(); 
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     
   }
 
@@ -45,7 +48,7 @@ export default class Chartemp extends Phaser.Scene {
   
   initPlayer(){
       
-    this.player = this.physics.add.sprite(50, 50, 'logo', 4);
+    this.player = this.physics.add.sprite(50, 50, 'logo', 4).setScale(0.4);
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravityY(0);
       
@@ -53,10 +56,18 @@ export default class Chartemp extends Phaser.Scene {
   
   initObject(){
     
-    this.object = this.physics.add.sprite(400, 400, 'logo', 4);
+    this.object = this.physics.add.sprite(10, 400, 'logo', 4).setScale(0.25);
     this.object.setCollideWorldBounds(true);
     this.object.body.setGravity(0);
             
+  }
+  
+  initPowerUp(){
+      
+    this.powerUp = this.physics.add.sprite(10, 250, 'logo', 4).setScale(0.25);
+    this.powerUp.setCollideWorldBounds(true);
+    this.powerUp.body.setGravity(0);
+    
   }
   
   initWorld(){
@@ -66,39 +77,49 @@ export default class Chartemp extends Phaser.Scene {
   
   }
   
-  checkCollisionWithBomb(){
+  checkCollision(){
       
-      this.collided = this.physics.collide(this.player , this.object);
+      this.collidedWithBomb = this.physics.collide(this.player , this.object);
+      this.collidedWithPowerUp = this.physics.collide(this.player, this.powerUp);
       
-      if(this.collided){
+      if(this.collidedWithBomb){
           
-          this.collisionHandler();
+        this.bombPickedUp = true;
+        this.object.destroy();
+          
+      }
+      
+      if(this.collidedWithPowerUp){
+          
+        this.powerUpPickedUp = true;
+        this.powerUp.destroy();
           
       }
       
   }
   
-  collisionHandler(){
-      
-      this.bombPickedUp = true;
-      this.object.destroy();
-      
-  }
-  
   updatePlayerPosition(){ 
     
-    this.checkCollisionWithBomb();
+    this.checkCollision();
     
-    if(this.keySpace.isDown){
+    if(this.keySpace.isDown && (this.bombPickedUp === true)){
          
-         
-         
-    }  
       
+      this.bombPickedUp = false;
+                
+    }  
+    
+    if(this.keyEnter.isDown && (this.powerUpPickedUp === true)){
+        
+      this.player.rotation = 1;
+      this.powerUpPickedUp = false;
+        
+    }
      
     if(this.cursors.left.isDown){ // WHEN LEFT IS PRESSED
          
       this.player.setVelocityX(-150);
+      this.player.setVelocityY(0);
       
       if(this.cursors.up.isDown){ // .. and up is pressed
       
@@ -115,7 +136,8 @@ export default class Chartemp extends Phaser.Scene {
     
     }else if(this.cursors.right.isDown){ // WHEN RIGHT IS PRESSED
          
-      this.player.setVelocityX(150); 
+      this.player.setVelocityX(150);
+      this.player.setVelocityY(0);
       
       if(this.cursors.up.isDown){
           
@@ -134,6 +156,7 @@ export default class Chartemp extends Phaser.Scene {
     }else if(this.cursors.up.isDown){ // WHEN UP IS PRESSED
          
       this.player.setVelocityY(-150);
+      this.player.setVelocityX(0);
       
       if(this.cursors.left.isDown){
         
@@ -151,7 +174,8 @@ export default class Chartemp extends Phaser.Scene {
                 
     }else if(this.cursors.down.isDown){ // WHEN DOWN IS PRESSED 
          
-      this.player.setVelocityY(150); 
+      this.player.setVelocityY(150);
+      this.player.setVelocityX(0);
       
       if(this.cursors.left.isDown){
         
