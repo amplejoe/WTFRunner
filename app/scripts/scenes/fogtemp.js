@@ -35,18 +35,12 @@ export default class Fogtemp extends Phaser.Scene {
     //var group=this.add.physicsGroup(Phaser.Physics.Arcade);
     this.emitter_array=[];
 
-    this.emitter_group = this.physics.add.group({
-      bounceX: 1,
-      bounceY: 1,
-      collideWorldBounds: true
-    });
-    this.physics.world.enable(this.emitter_group);
 
 
-    for (var i=1;i<3+1;i++){
+    for (var i=0;i<3;i++){
       //this.emitter_array[i]=this.add.existing(new FogSprite(this,200*i,200*i));
-      this.emitter_array[i-1]=this.add.existing(new FogSprite(this,200*i,200*i));
-      this.emitter_group.add(this.emitter_array[i-1]);
+      this.emitter_array[i]=this.add.existing(new FogSprite(this,200*(i+1),200*(i+1),100,10000));
+
       //var fog= group.create();
     }
 
@@ -60,6 +54,7 @@ export default class Fogtemp extends Phaser.Scene {
       }
     }, this);
 
+    console.log(this.emitter_array[0].calc_points([[-2, 2], [-1, -0.5], [0, 0.5], [1.5, -1.5]],1));
 
 
 
@@ -78,8 +73,9 @@ export default class Fogtemp extends Phaser.Scene {
 
 
   update(/* t, dt */) {
-
+    //this.physics.arcade.collide(this.emitter_group);
   }
+
 
 
 

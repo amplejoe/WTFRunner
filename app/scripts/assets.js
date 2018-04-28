@@ -51,9 +51,25 @@ export const gameAssets = [{
   type: 'tilemapTiledJSON',
   url: 'tilemaps/wtf_map_100x100.json'
 },{
-  key: 'music_1',
+  key: 'music1',
   type: 'audio',
-  url: 'audio/Digitize1.mp3'
+  url: 'audio/music1.mp3'
+},{
+  key: 'music2',
+  type: 'audio',
+  url: 'audio/music2.mp3'
+},{
+  key: 'music3',
+  type: 'audio',
+  url: 'audio/music3.mp3'
+},{
+  key: 'music4',
+  type: 'audio',
+  url: 'audio/music4.mp3'
+},{
+  key: 'music5',
+  type: 'audio',
+  url: 'audio/music5.mp3'
 },{
   // character / player
    key: 'player',
