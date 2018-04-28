@@ -1,5 +1,6 @@
-//  Import game instance configuration.
+//  Imports
 import * as config from '@/config';
+import Player from '@/objects/player';
 
 export default class Level extends Phaser.Scene {
   /**
@@ -27,29 +28,36 @@ export default class Level extends Phaser.Scene {
 
 
     this.setupMap();
+    this.initPlayer();
+    this.initPhysics();
     this.setupCameras();
-    if (config.DEBUG) this.setupDebug();
     this.setupControls();
+
+    if (config.DEBUG) this.setupDebug();
 
   }
 
   setupControls()
   {
-    var cursors = this.input.keyboard.createCursorKeys();
-    var controlConfig = {
-      camera: this.cameras.main,
-      left: cursors.left,
-      right: cursors.right,
-      up: cursors.up,
-      down: cursors.down,
-      speed: 0.5
-    };
-    this.controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+    // var cursors = this.input.keyboard.createCursorKeys();
+    // var controlConfig = {
+    //   camera: this.cameras.main,
+    //   left: cursors.left,
+    //   right: cursors.right,
+    //   up: cursors.up,
+    //   down: cursors.down,
+    //   speed: 0.5
+    // };
+    // this.controls = new Phaser.Cameras.Controls.Fixed(controlConfig);
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
   }
 
   setupDebug()
   {
-    var help = this.add.text(16, 16, 'Arrows to scroll', {
+    var help = this.add.text(16, 16, 'Arrows to move', {
       fontSize: '18px',
       padding: { x: 10, y: 5 },
       backgroundColor: '#000000',
@@ -80,6 +88,42 @@ export default class Level extends Phaser.Scene {
   {
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * config.ZOOM_FACTOR, this.map.heightInPixels * config.ZOOM_FACTOR);
     // this.cameras.main.setZoom(zoomFactor);
+    this.cameras.main.startFollow(this.character);
+  }
+
+  initPlayer(){
+
+    this.character = this.add.existing(new Player(this, 100 , 100));
+    this.physics.add.sprite(this.character);
+    this.physics.world.enable(this.character);
+    this.character.body.setCollideWorldBounds(true);
+    this.character.body.setGravity(0);
+
+    this.anims.create({
+      key: 'run',
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+  }
+
+  initPhysics(){
+    this.physics.world.setBounds(0, 0, this.map.widthInPixels * config.ZOOM_FACTOR, this.map.heightInPixels * config.ZOOM_FACTOR);
+  }
+
+
+  checkCollision(){
+    this.collidedWithBomb = this.physics.collide(this.character , this.object);
+    this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
+    if(this.collidedWithBomb){
+      this.bombPickedUp = true;
+      this.object.destroy();
+    }
+
+    if(this.collidedWithPowerUp){
+      this.powerUpPickedUp = true;
+      this.powerUp.destroy();
+    }
   }
 
   /**
@@ -90,6 +134,16 @@ export default class Level extends Phaser.Scene {
      *  @param {number} dt - Time elapsed since last update.
      */
   update(t, dt) {
-    this.controls.update(dt);
+    // this.controls.update(dt);
+
+    // player movement
+    this.running = this.character.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
+
+    if(this.running){
+      this.physics.velocityFromAngle(this.character.body.rotation - 90, 250, this.character.body.velocity);
+    }else{
+      this.physics.velocityFromAngle(this.character.body.rotation - 90, 0, this.character.body.velocity);
+    }
+
   }
 }
