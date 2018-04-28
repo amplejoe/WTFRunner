@@ -73,8 +73,8 @@ export default class Level extends Phaser.Scene {
     // add tilemap to game
     // with json
     this.map = this.make.tilemap({key: 'level_1_map'});
-    var tileset = this.map.addTilesetImage('wtf_sheet','level_sprites');
-    this.layer = this.map.createDynamicLayer('Kachelebene 1', tileset, 0, 0);
+    this.tileset = this.map.addTilesetImage('wtf_sheet','level_sprites');
+    this.layer = this.map.createDynamicLayer('Kachelebene 1', this.tileset, 0, 0);
 
     // init animated tiles
     this.sys.animatedTiles.init(this.map);
@@ -82,6 +82,9 @@ export default class Level extends Phaser.Scene {
     this.sys.animatedTiles.updateAnimatedTiles();
 
     this.layer.setScale(config.ZOOM_FACTOR);
+    // console.log(tileset);
+    // console.log(this.map.widthInPixels);
+    // console.log(this.map.widthInPixels * config.ZOOM_FACTOR);
   }
 
   setupCameras()
@@ -108,7 +111,7 @@ export default class Level extends Phaser.Scene {
   }
 
   initPhysics(){
-    this.physics.world.setBounds(0, 0, this.map.widthInPixels * config.ZOOM_FACTOR, this.map.heightInPixels * config.ZOOM_FACTOR);
+    this.physics.world.setBounds(0, 0, (this.map.widthInPixels + this.tileset.tileWidth) * config.ZOOM_FACTOR, (this.map.heightInPixels+ this.tileset.tileHeight) * config.ZOOM_FACTOR);
   }
 
 
@@ -140,7 +143,7 @@ export default class Level extends Phaser.Scene {
     this.running = this.character.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
 
     if(this.running){
-      this.physics.velocityFromAngle(this.character.body.rotation - 90, 250, this.character.body.velocity);
+      this.physics.velocityFromAngle(this.character.body.rotation - 90, config.PLAYER_VELOCITY, this.character.body.velocity);
     }else{
       this.physics.velocityFromAngle(this.character.body.rotation - 90, 0, this.character.body.velocity);
     }
