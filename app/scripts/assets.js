@@ -50,4 +50,8 @@ export const gameAssets = [{
   key: 'level_1_map',
   type: 'tilemapTiledJSON',
   url: 'tilemaps/wtf_map_100x100.json'
+},{
+  key: 'music_1',
+  type: 'audio',
+  url: 'audio/Digitize1.mp3'
 }];
