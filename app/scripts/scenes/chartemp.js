@@ -20,8 +20,8 @@ export default class Chartemp extends Phaser.Scene {
    create(){
       
     this.initPlayer();
-    //this.initObject();
-    //this.initPowerUp();
+    this.initObject();
+    this.initPowerUp();
     this.initWorld();
     this.initInput();
     
@@ -45,7 +45,7 @@ export default class Chartemp extends Phaser.Scene {
           
       }
       
-      //checkCollision();
+      this.checkCollision();
       
   }
   
@@ -64,11 +64,18 @@ export default class Chartemp extends Phaser.Scene {
     repeat: -1
     });
     
+    this.anims.create({
+    key: 'tornado',
+    frames: this.anims.generateFrameNumbers('tornado', { start: 0, end: 3}),
+    frameRate: 10,
+    repeat: -1
+    });
+    
   }
   
   initObject(){
     
-    this.object = this.physics.add.sprite(10, 400, 'logo', 4).setScale(0.25);
+    this.object = this.physics.add.sprite(100, 400, 'logo', 4).setScale(0.25);
     this.object.setCollideWorldBounds(true);
     this.object.body.setGravity(0);
             
@@ -76,7 +83,7 @@ export default class Chartemp extends Phaser.Scene {
   
   initPowerUp(){
       
-    this.powerUp = this.physics.add.sprite(10, 250, 'logo', 4).setScale(0.25);
+    this.powerUp = this.physics.add.sprite(100, 250, 'logo', 4).setScale(0.25);
     this.powerUp.setCollideWorldBounds(true);
     this.powerUp.body.setGravity(0);
     
@@ -103,8 +110,8 @@ export default class Chartemp extends Phaser.Scene {
       this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
       
       if(this.collidedWithBomb){
-          
-        this.bombPickedUp = true;
+      
+        this.character.getBomb();
         this.object.destroy();
           
       }
