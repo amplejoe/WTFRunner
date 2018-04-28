@@ -8,6 +8,12 @@ export default class Tilemaptemp extends Phaser.Scene {
     super({key: 'Tilemaptemp'});
   }
 
+  preload()
+  {
+    // animated tiles plugin
+    this.load.plugin('AnimatedTiles', 'animtiles/AnimatedTiles.js');
+  }
+
   /**
    *  Responsible for setting up game objects on the screen.
    *
@@ -15,6 +21,9 @@ export default class Tilemaptemp extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   create(/* data */) {
+
+    this.sys.install('AnimatedTiles');
+
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
     const label = this.add.text(x_mid, y_mid, 'I am Tilemap', {
@@ -34,17 +43,23 @@ export default class Tilemaptemp extends Phaser.Scene {
     // var layer = map.createDynamicLayer(0, tileset, 0, 0);
 
     // with json
-    let map = this.add.tilemap('level_1_map');
-    var tileset = map.addTilesetImage('wtf_sheet','level_sprites');
-    let layer = map.createDynamicLayer('Kachelebene 1', tileset, 0, 0);
+    this.map = this.make.tilemap({key: 'level_1_map'});
+    var tileset = this.map.addTilesetImage('wtf_sheet','level_sprites');
+    this.layer = this.map.createDynamicLayer('Kachelebene 1', tileset, 0, 0);
 
+    // init animated tiles
+    this.sys.animatedTiles.init(this.map);
+    this.sys.animatedTiles.resume(0,0);
+    this.sys.animatedTiles.updateAnimatedTiles();
 
+    // start dat.gui
+    // window.startGui(this.sys.animatedTiles);
 
 
     let zoomFactor = 0.5;
-    layer.setScale(zoomFactor);
+    this.layer.setScale(zoomFactor);
 
-    this.cameras.main.setBounds(0, 0, map.widthInPixels * zoomFactor, map.heightInPixels*zoomFactor);
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * zoomFactor, this.map.heightInPixels*zoomFactor);
     // this.cameras.main.setZoom(zoomFactor);
 
 
@@ -67,6 +82,10 @@ export default class Tilemaptemp extends Phaser.Scene {
     });
     help.setScrollFactor(0);
 
+    // countdown 5 sek until change
+    this.countdown = 5000;
+    this.changed = false;
+
   }
 
   /**
@@ -78,5 +97,24 @@ export default class Tilemaptemp extends Phaser.Scene {
    */
   update(t, dt) {
     this.controls.update(dt);
+
+    // this.sys.animatedTiles.updateAnimatedTiles();
+
+    // this.countdown -= dt;
+    // // countdown is done, but the change hasn't been done
+    // if(this.countdown <0 && !this.changed){
+    //   // Native API-method to fill area with tiles
+    //   // this.layer.fill(1525, 1, 1, 3, 3);
+    //   // Need to tell the plugin about the new tiles.
+    //   // ATM it will go through all tilemaps and layers,
+    //   // but I'll add support for limiting the task to
+    //   // maps, layers and areas within that.
+    //   this.sys.animatedTiles.updateAnimatedTiles();
+    //   // Ok. don't hammer tiles on each update-loop. the change is done.
+    //   this.changed = true;
+    //   console.log("update");
+    // }
+
+
   }
 }
