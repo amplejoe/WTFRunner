@@ -12,13 +12,19 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'smoke-puff');
 
+    //angle in which the emitter emitts particles
+    var emmiterAngleMax=45;
+    var emmiterAngleMin=45;
+    this.setOrigin(0.5);
 
     this.scene=scene;
     this.particles = scene.add.particles('smoke-puff');
     this.emitter=this.particles.createEmitter({
-      speed: 100,
+      speed: 100, //speed of the particles
       scale:{start: 1, end:0},
-      blendMode:'ADD'
+      blendMode:'ADD',
+      lifespan: 10000, //time till the particles vanish
+      angle: {min:0+emmiterAngleMin, max:360-emmiterAngleMax} //angle in which the emitter emitts particles
     });
 
 
@@ -31,13 +37,40 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
   }
 
   move_step(dx,dy,duration){
-
+    //dx-> stepwidth in x direction
+    //dy-> stepwidth in y direction
+    // duration -> time till the emmiter moved to the goal
     var tween = this.scene.tweens.add({
       targets: this,
       ease: 'Sine.easeInOut',
       x: { value: this.x+dx, duration:duration,ease:'Power2'},
       y: { value: this.y+dy, duration:duration,ease:'Power2'}
     });
+  }
+
+  move_direction(x_pointgoal,y_pointgoal,move_duration,rotation_duration){
+    var dx=x_pointgoal-this.x;
+    var dy=y_pointgoal-this.y;
+    var length_pointer=Math.sqrt((dx*dx)+(dy*dy));
+
+
+
+    var rotation=-Math.atan2((dy/length_pointer)-Math.sin(this.rotation),(dx/length_pointer)-Math.cos(this.rotation));
+
+
+    //console.log(this.rotation);
+    //console.log(rotation);
+    var tween = this.scene.tweens.add({
+      targets: this,
+      ease: 'Power2',
+      x: { value: this.x+dx, duration:move_duration,ease:'Power2'},
+      y: { value: this.y+dy, duration:move_duration,ease:'Power2'},
+      rotation: { value: this.rotation+rotation, duration:move_duration,ease:'Power2'},
+    });
+
+    this.emitter.setAngle()
+
+
 
 
   }

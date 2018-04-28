@@ -33,43 +33,20 @@ export default class Fogtemp extends Phaser.Scene {
     const y_mid = this.cameras.main.height / 2;
 
     this.fog_sprite1=this.add.existing(new FogSprite(this,x_mid,y_mid));
-    this.fog_sprite1.move_step(100,100,4000);
-    /*
-    var particles = this.add.particles('smoke');
-    this.destX=x_mid+400;
-
-    this.emitter=particles.createEmitter({
-      speed: 100,
-      scale:{start: 1, end:0},
-      blendMode:'ADD'
-    });
-
-    const image = this.add.image(x_mid, y_mid, 'smoke');
-
-    this.emitter.startFollow(image);
+    //this.fog_sprite1.move_step(100,100,4000);
 
 
-     this.tween = this.tweens.add({
-      targets: image,
-      duration: 30000,
-      repeat: 10,
-      ease: 'Sine.easeInOut',
+    this.input.on('pointerdown', function (pointer) {
 
-      x: { value: this.destX, duration:3000,ease:'Power2'},
+      this.fog_sprite1.move_direction(pointer.x,pointer.y,3000,1000);
 
-    });*/
+    }, this);
 
 
 
-    /*this.add.image(400, 300, 'smoke');
 
 
-    const label = this.add.text(x_mid, y_mid, 'I am Fog', {
-      font: '20px Arial',
-      color: 'white',
-      stroke: 'black',
-      strokeThickness: 6
-    });*/
+
   }
 
   /**
@@ -86,22 +63,7 @@ export default class Fogtemp extends Phaser.Scene {
 
   }
 
-  scaleSort(a, b) {
 
-    if (a.scale.x < b.scale.x)
-    {
-      return -1;
-    }
-    else if (a.scale.x > b.scale.x)
-    {
-      return 1;
-    }
-    else
-    {
-      return 0;
-    }
-
-  }
 
 
 
