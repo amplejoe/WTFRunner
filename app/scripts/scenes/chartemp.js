@@ -111,7 +111,7 @@ export default class Chartemp extends Phaser.Scene {
       
       if(this.collidedWithBomb){
       
-        this.character.getBomb();
+        this.character.recieveBomb();
         this.object.destroy();
           
       }
