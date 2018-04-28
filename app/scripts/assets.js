@@ -32,4 +32,8 @@ export const gameAssets = [{
   type: 'spritesheet',
   url: 'tilemaptmp/sprites_no_padding.png',
   config: {frameWidth: 32, frameHeight: 32}
+},{
+  key:'smoke-puff',
+  type: 'image',
+  url: 'particles/smoke-puff.png'
 }];
