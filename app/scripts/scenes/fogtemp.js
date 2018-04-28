@@ -1,3 +1,5 @@
+import FogSprite from '@/objects/fog-sprite';
+
 export default class Fogtemp extends Phaser.Scene {
   /**
    *  My custom scene.
@@ -29,7 +31,13 @@ export default class Fogtemp extends Phaser.Scene {
 
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
+
+    this.fog_sprite1=this.add.existing(new FogSprite(this,x_mid,y_mid));
+    this.fog_sprite1.move_step(100,100,4000);
+    /*
     var particles = this.add.particles('smoke');
+    this.destX=x_mid+400;
+
     this.emitter=particles.createEmitter({
       speed: 100,
       scale:{start: 1, end:0},
@@ -41,12 +49,15 @@ export default class Fogtemp extends Phaser.Scene {
     this.emitter.startFollow(image);
 
 
-    this.tween = this.tweens.add({
+     this.tween = this.tweens.add({
       targets: image,
-      x: x_mid+100,
-      ease: 'Power2',
-      duration: 3000
-    });
+      duration: 30000,
+      repeat: 10,
+      ease: 'Sine.easeInOut',
+
+      x: { value: this.destX, duration:3000,ease:'Power2'},
+
+    });*/
 
 
 
