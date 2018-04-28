@@ -51,13 +51,16 @@ export const gameAssets = [{
   type: 'tilemapTiledJSON',
   url: 'tilemaps/wtf_map_100x100.json'
 },{
-   // character / player 
+  key: 'music_1',
+  type: 'audio',
+  url: 'audio/Digitize1.mp3'
+},{
+  // character / player
    key: 'player',
    type: 'spritesheet',
    url: 'char/char.png',
    config: {
-       frameWidth : 128,
-       frameHeight : 128
+     frameWidth : 128,
+     frameHeight : 128
    }
-    
 }];
