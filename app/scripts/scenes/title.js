@@ -15,6 +15,14 @@ export default class Title extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   create(/* data */) {
+    const x_mid = this.cameras.main.width / 2;
+    const y_mid = this.cameras.main.height / 2;
+    const label = this.add.text(x_mid, y_mid, 'I am Title', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
   }
 
   /**
