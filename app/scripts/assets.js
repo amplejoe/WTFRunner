@@ -50,4 +50,14 @@ export const gameAssets = [{
   key: 'level_1_map',
   type: 'tilemapTiledJSON',
   url: 'tilemaps/wtf_map_100x100.json'
+},{
+   // character / player 
+   key: 'player',
+   type: 'spritesheet',
+   url: 'char/char.png',
+   config: {
+       frameWidth : 128,
+       frameHeight : 128
+   }
+    
 }];
