@@ -1,47 +1,39 @@
-export default class Chartemp extends Phaser.Scene {
+export default class Player extends Phaser.GameObjects.Sprite {
   /**
-   *  My custom scene.
+   *  My custom sprite.
    *
-   *  @extends Phaser.Scene
+   *  @constructor
+   *  @class Player
+   *  @extends Phaser.GameObjects.Sprite
+   *  @param {Phaser.Scene} scene - The scene that owns this sprite.
+   *  @param {number} x - The horizontal coordinate relative to the scene viewport.
+   *  @param {number} y - The vertical coordinate relative to the scene viewport.
    */
-  constructor() {
-    super({key: 'Chartemp'});
-  }
+  constructor(scene, x, y) {
+    super(scene, x, y, 'player');
 
-  /**
-   *  Responsible for setting up game objects on the screen.
-   *
-   *  @protected
-   *  @param {object} [data={}] - Initialization parameters.
-   */
+    //  Add this game object to the owner scene.
+    scene.children.add(this);
+  }
   
-  
-  
-  
-  create(/* data */) {
-    
+  create(){
+      
     this.initPlayer();
     this.initObject();
     this.initWorld();
+    this.initInput();
     
     this.bombPickedUp = false;
-    this.cursors = this.input.keyboard.createCursorKeys(); 
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    
-  }
-
-  /**
-   *  Handles updates to game logic, physics and game objects.
-   *
-   *  @protected
-   *  @param {number} t - Current internal clock time.
-   *  @param {number} dt - Time elapsed since last update.
-   */
-  update() {
-      
-    this.updatePlayerPosition();
       
   }
+  
+  update(){
+      
+      this.updatePlayerPosition();
+      
+  }
+  
+  // ##### ADDITIONAL METHODS #####
   
   initPlayer(){
       
@@ -59,10 +51,16 @@ export default class Chartemp extends Phaser.Scene {
             
   }
   
+  initInput(){
+      
+    this.cursors = this.input.keyboard.createCursorKeys(); 
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+            
+  }
+  
   initWorld(){
       
-    this.physics.world.setBounds(0, 0, this.cameras.main.width, this.cameras.main.height);  
-      
+    this.physics.world.setBounds(0, 0, this.cameras.main.width, this.cameras.main.height);     
   
   }
   
@@ -87,11 +85,14 @@ export default class Chartemp extends Phaser.Scene {
   
   updatePlayerPosition(){ 
     
-    this.checkCollisionWithBomb();
+        this.checkCollisionWithBomb();
     
-    if(this.keySpace.isDown){
+    if(this.keySpace.isDown && (this.bombPickedUp === true)){
          
+      // do something when bomb is launched   
          
+      
+      this.bombPickedUp = false;          
          
     }  
       
@@ -170,12 +171,6 @@ export default class Chartemp extends Phaser.Scene {
       this.player.setVelocityX(0);
       this.player.setVelocityY(0);
          
-    }
-    
-    
-    
-    
-      
-  }
-  
+    }   
+  }          
 }
