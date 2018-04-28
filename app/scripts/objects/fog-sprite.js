@@ -48,7 +48,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     });
   }
 
-  move_direction(x_pointgoal,y_pointgoal,move_duration,rotation_duration){
+  move_direction(x_pointgoal,y_pointgoal,move_duration){
     var dx=x_pointgoal-this.x;
     var dy=y_pointgoal-this.y;
     var length_pointer=Math.sqrt((dx*dx)+(dy*dy));
@@ -68,7 +68,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
       rotation: { value: this.rotation+rotation, duration:move_duration,ease:'Power2'},
     });
 
-    this.emitter.setAngle()
+
 
 
 
