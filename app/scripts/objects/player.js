@@ -165,7 +165,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
     }else{
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);
-    }
-
+    }    
   }
 }
