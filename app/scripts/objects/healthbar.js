@@ -33,7 +33,7 @@ export default class Healthbar {
     this.music5.play({ loop: true });
 
     this.dangerSound = this.scene.sound.add('dangerSound');
-    this.healSound = this.scene.sound.add('collectSound');
+    this.healSound = this.scene.sound.add('healSound');
 
     this.music1.mute = false;
     this.music2.mute = true;

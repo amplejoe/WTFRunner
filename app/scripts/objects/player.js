@@ -37,15 +37,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
       frameRate: 30,
       repeat: -1
     });
-    
+
      scene.anims.create({
       key: 'dance',
       frames: scene.anims.generateFrameNumbers('player', {frames: [1,2,3,2,1,6,5,4,5,6]}),
       frameRate: 10,
       repeat: -1
     });
-    
-    
+
+
 
     this.recievedBomb = false;
     this.recievedPowerUp = false;
@@ -64,6 +64,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.initControls();
 
     this.timer;
+
+    this.invincibleSound = this.scene.sound.add('invincibleSound');
+    this.collectSound = this.scene.sound.add('collectSound');
 
   }
 
@@ -92,6 +95,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     var powerUp = this.scene.physics.add.sprite((this.scene.cameras.main.width - 110) - offset, 40, 'powerUp', 4).setScale(0.5);
     powerUp.rotation = 0.3;
     powerUp.setScrollFactor(0);
+    this.collectSound.play();
 
     return powerUp;
 
@@ -145,6 +149,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.anims.stop('run', true);
       this.anims.play('spin', true);
       this.spinning = true;
+      this.invincibleSound.play();
+
       this.timer = this.scene.time.addEvent({ delay: config.CAN_INVINCIBILITY, callback: this.stopSpinning, callbackScope: this, repeat: false });
 
     }else if(cursors.left.isDown){ // WHEN LEFT IS PRESSED
