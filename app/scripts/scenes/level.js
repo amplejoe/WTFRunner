@@ -67,6 +67,8 @@ export default class Level extends Phaser.Scene {
     this.score = 0;
     this.scoreCounter = config.SCORE_INCREMENT_MS;
 
+    this.currentlyDeleting = false;
+
   }
 
   createFogSprite(x, y, speed, lifespan, fogTimeout) {
@@ -310,19 +312,32 @@ export default class Level extends Phaser.Scene {
     // hit timout
     this.fogImmunity -= dt;
     let canBeHit = (this.fogImmunity <= 0);
-    if (canBeHit)
-    {
-      if (this.character.spinning) canBeHit = false;
-    }
+    // if (canBeHit)
+    // {
+    //   if (this.character.spinning) canBeHit = false;
+    // }
+
+    // idxes to delete
+    let toDelete = [];
 
     for (let i=0; i<this.fogSprites.length; i++) {
       this.fogSprites[i].update(t, dt);
 
-      let particles = this.fogSprites[i].getParticleOverlap(this.character);
-      if (this.character.spinning) this.fogSprites[i].deleteParticles(particles);
 
-      if (canBeHit)
+      // spin to erase fog (player invincible)
+      if (this.character.spinning)
       {
+        let particles = this.fogSprites[i].getParticleOverlap(this.character);
+        this.fogSprites[i].deleteParticles(particles);
+        if (this.fogSprites[i].isEmitterTouching(this.character) && this.currentlyDeleting == false)
+        {
+          // console.log("Touching!");
+          toDelete.push(i);
+        }
+      }
+      else if (canBeHit)
+      {
+        let particles = this.fogSprites[i].getParticleOverlap(this.character);
         // let isHit = this.fogSprites[i].calcPlayerHit(this.character);
         let isHit = particles.length > 0;
 
@@ -332,6 +347,32 @@ export default class Level extends Phaser.Scene {
           // this.cameras.main.shake(1000);
         }
       }
+
+    }
+
+    // delete emitters in case toDelete is filled
+    for (let i=0;i<toDelete.length;i++)
+    {
+      this.currentlyDeleting = true;
+      let deadFog = this.fogSprites[toDelete[i]];
+      let deadParticles = deadFog.particles;
+      let tween = this.tweens.add({
+        targets:  this.fogSprites[toDelete[i]],
+        alpha: 0,
+        ease: 'Power1',
+        duration: 1500,
+        delay: 50,
+        onComplete: () => {
+
+          deadParticles.destroy();
+          deadFog.destroy();
+          this.cameras.main.flash(500);
+          this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,5000 + (Math.random()-0.3) * 10000);
+          this.fogSprites.splice(toDelete[i], 1);
+          this.currentlyDeleting = false;
+        }
+      });
+
 
     }
 

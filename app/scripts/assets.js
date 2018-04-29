@@ -18,6 +18,9 @@ export const splashScreenAssets = [{
 }, {
   key: 'intro-screen',
   type: 'image'
+},{
+  key: 'gameover',
+  type: 'image'
 }];
 
 /**

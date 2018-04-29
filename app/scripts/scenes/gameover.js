@@ -23,7 +23,10 @@ export default class Gameover extends Phaser.Scene {
   create(/* data */) {
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
-    let msg = 'GAME OVER!\nScore: '+ this.endScore+'';
+    
+    this.add.image(0, 0, 'gameover').setOrigin(0);
+    
+    let msg = 'Score: '+ this.endScore+'';
     const label = this.add.text(x_mid, y_mid, msg, {
       font: '40px Arial',
       color: 'white',
@@ -31,6 +34,7 @@ export default class Gameover extends Phaser.Scene {
       strokeThickness: 6
     });
     label.setOrigin(0.5, 0.5);
+    
     this.gameoverSound = this.sound.add('gameoverSound');
     this.gameoverSound.play();
 
@@ -42,6 +46,7 @@ export default class Gameover extends Phaser.Scene {
     });
     retrylabel.setOrigin(0.5, 0.5).setInteractive();
     retrylabel.on('pointerup', () => this.scene.start('Game'));
+    
   }
 
   /**

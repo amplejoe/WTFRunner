@@ -140,6 +140,21 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     };
   }
 
+  isEmitterTouching(character)
+  {
+    // console.log("Emitter dims:");
+    // console.log(this);
+    let e_x_min = this.x - (this.width/2);
+    let e_x_max = this.x + (this.width/2);
+    let e_y_min = this.y - (this.height/2);
+    let e_y_max = this.y + (this.height/2);
+    if (character.x >= e_x_min && character.x <= e_x_max && character.y >= e_y_min && character.y <= e_y_max )
+      return true;
+
+    // console.log(this.x + " " + this.y + " " + this.width + " " + this.height);
+    return false;
+  }
+
   getParticleOverlap(character)
   {
     let particles = this.emitter.alive;
