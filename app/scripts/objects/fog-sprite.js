@@ -172,12 +172,22 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     }
   }
 
-  calcPlayerHit(character)
+  deleteParticles(particles)
   {
-    let overlappingParticles = this.getParticleOverlap(character);
-    this.damage(character, overlappingParticles);
-    return overlappingParticles.length > 0;
+    for (let i=0;i<particles.length;i++)
+    {
+
+      particles[i].lifeCurrent = 0;
+      console.log(particles[i]);
+    }
   }
+
+  // calcPlayerHit(character)
+  // {
+  //   let overlappingParticles = this.getParticleOverlap(character);
+  //   this.damage(character, overlappingParticles);
+  //   return overlappingParticles.length > 0;
+  // }
 
 
   update(t, dt)

@@ -22,6 +22,7 @@ export const FOG_TIMEOUT = 3000;
 export const SCORE_INCREMENT_MS = 500;
 export const POWERUP_SCALE = 0.75;
 export const CAN_INVINCIBILITY = 5000;
+export const HEALTH_POWER_UP_HP = 20; 
 
 /**
  *  Game canvas width.
