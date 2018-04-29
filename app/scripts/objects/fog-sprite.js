@@ -178,7 +178,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     {
 
       particles[i].lifeCurrent = 0;
-      console.log(particles[i]);
+      // console.log(particles[i]);
     }
   }
 
