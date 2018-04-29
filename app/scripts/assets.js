@@ -49,7 +49,7 @@ export const gameAssets = [{
   // first level
   key: 'level_1_map',
   type: 'tilemapTiledJSON',
-  url: 'tilemaps/wtf_map_100x100.json'
+  url: 'tilemaps/wtf_map_100x100_2.json'
 },{
   key: 'music1',
   type: 'audio',
@@ -113,6 +113,15 @@ export const gameAssets = [{
    key: 'powerUp',
    type: 'spritesheet',
    url: 'char/spin_item.png',
+   config: {
+     frameWidth : 64,
+     frameHeight : 64
+   }
+},{
+   // healthUp for the character
+   key: 'healthUp',
+   type: 'spritesheet',
+   url: 'char/health_item.png',
    config: {
      frameWidth : 64,
      frameHeight : 64
