@@ -162,9 +162,9 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     for (let i=0; i<overlapping.length; i++)
     {
       let life = overlapping[i].life;
-      console.log(overlapping[i]);
+      // console.log(overlapping[i]);
       let curLifetime = overlapping[i].lifeCurrent;
-      console.log();
+      // console.log();
       let dmg = curLifetime/life * config.MAX_DMG;
       character.healthbar.hurt(dmg);
     }

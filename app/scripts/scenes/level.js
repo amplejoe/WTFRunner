@@ -37,7 +37,6 @@ export default class Level extends Phaser.Scene {
     this.layerP.setScale(config.ZOOM_FACTOR);
     this.layerG.setScale(config.ZOOM_FACTOR);
 
-
     // init animated tiles (DONT SCALE AFTER!!)
     this.sys.animatedTiles.init(this.map);
     // resume(layerindex, mapindex)
@@ -52,6 +51,17 @@ export default class Level extends Phaser.Scene {
     this.createFogSprite(200,200,100,10000);
 
     if (config.DEBUG) this.setupDebug();
+
+    this.scoreDisplay = this.add.text(16, 16, 'Score: 0', {
+      fontSize: '32px',
+      padding: { x: 10, y: 5 },
+      // backgroundColor: '#000000',
+      fill: '#ffffff'
+    });
+    this.scoreDisplay.setShadow(5, 5, 'rgba(0,0,0,0.8)', 15);
+    this.scoreDisplay.setScrollFactor(0);
+    this.score = 0;
+    this.scoreCounter = config.SCORE_INCREMENT_MS;
 
   }
 
@@ -164,6 +174,11 @@ export default class Level extends Phaser.Scene {
   }
 
 
+  startGameover()
+  {
+    this.scene.start('Gameover', this.score);
+  }
+
   // checkCollision(){
   //   this.collidedWithBomb = this.physics.collide(this.character , this.object);
   //   this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
@@ -189,6 +204,16 @@ export default class Level extends Phaser.Scene {
     // this.controls.update(dt);
     this.character.update();
 
+    // score
+    this.scoreCounter -= dt;
+    if (this.scoreCounter <= 0)
+    {
+      this.scoreCounter = config.SCORE_INCREMENT_MS;
+      this.score++;
+      this.scoreDisplay.setText('Score: ' + this.score);
+    }
+
+    // hit timout
     this.fogImmunity -= dt;
     let canBeHit = (this.fogImmunity <= 0);
 

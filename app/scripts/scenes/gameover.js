@@ -6,6 +6,12 @@ export default class Gameover extends Phaser.Scene {
    */
   constructor() {
     super({key: 'Gameover'});
+
+  }
+
+  init(score)
+  {
+    this.endScore = score;
   }
 
   /**
@@ -17,7 +23,8 @@ export default class Gameover extends Phaser.Scene {
   create(/* data */) {
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
-    const label = this.add.text(x_mid, y_mid, 'GAME OVER!', {
+    let msg = 'GAME OVER! (Score: '+ this.endScore+')';
+    const label = this.add.text(x_mid, y_mid, msg, {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',
