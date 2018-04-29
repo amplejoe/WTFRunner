@@ -29,8 +29,8 @@ export default class Fogtemp extends Phaser.Scene {
   create(/* data */) {
 
 
-    const x_mid = this.cameras.main.width / 2;
-    const y_mid = this.cameras.main.height / 2;
+    // const x_mid = this.cameras.main.width / 2;
+    // const y_mid = this.cameras.main.height / 2;
 
     //var group=this.add.physicsGroup(Phaser.Physics.Arcade);
     this.emitter_array=[];
@@ -54,7 +54,7 @@ export default class Fogtemp extends Phaser.Scene {
       }
     }, this);
 
-    console.log(this.emitter_array[0].calc_points([[-2, 2], [-1, -0.5], [0, 0.5], [1.5, -1.5]],1));
+    // console.log(this.emitter_array[0].calc_points([[-2, 2], [-1, -0.5], [0, 0.5], [1.5, -1.5]],1));
 
 
 

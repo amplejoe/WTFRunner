@@ -110,50 +110,50 @@ export const gameAssets = [{
   url: 'audio/destroy.mp3'
 },{
   // character / player
-   key: 'player',
-   type: 'spritesheet',
-   url: 'char/char.png',
-   config: {
-     frameWidth : 128,
-     frameHeight : 128
-   }
+  key: 'player',
+  type: 'spritesheet',
+  url: 'char/char.png',
+  config: {
+    frameWidth : 128,
+    frameHeight : 128
+  }
 },{
-   // the spin for the character
-   key: 'player_spin',
-   type: 'spritesheet',
-   url: 'char/char_spin.png',
-   config: {
-     frameWidth : 128,
-     frameHeight : 128
-   }
+  // the spin for the character
+  key: 'player_spin',
+  type: 'spritesheet',
+  url: 'char/char_spin.png',
+  config: {
+    frameWidth : 128,
+    frameHeight : 128
+  }
 },{
-   // powerUp for the character
-   key: 'powerUp',
-   type: 'spritesheet',
-   url: 'char/spin_item.png',
-   config: {
-     frameWidth : 64,
-     frameHeight : 64
-   }
+  // powerUp for the character
+  key: 'powerUp',
+  type: 'spritesheet',
+  url: 'char/spin_item.png',
+  config: {
+    frameWidth : 64,
+    frameHeight : 64
+  }
 },{
-   // healthUp for the character
-   key: 'healthUp',
-   type: 'spritesheet',
-   url: 'char/health_item.png',
-   config: {
-     frameWidth : 64,
-     frameHeight : 64
-   }
+  // healthUp for the character
+  key: 'healthUp',
+  type: 'spritesheet',
+  url: 'char/health_item.png',
+  config: {
+    frameWidth : 64,
+    frameHeight : 64
+  }
 }, {
   key: 'retry',
   type: 'image'
 },{
-   // healthUp for the character
-   key: 'start',
-   type: 'spritesheet',
-   url: 'start.png',
-   config: {
-     frameWidth : 233,
-     frameHeight : 153
-   }
+  // healthUp for the character
+  key: 'start',
+  type: 'spritesheet',
+  url: 'start.png',
+  config: {
+    frameWidth : 233,
+    frameHeight : 153
+  }
 }];

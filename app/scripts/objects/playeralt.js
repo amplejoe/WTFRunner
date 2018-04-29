@@ -16,7 +16,7 @@ export default class Playeralt extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
 
-    console.log(scene.impact);
+    //console.log(scene.impact);
     scene.impact.world.enable(this);
 
     this.setMaxVelocity(300, 400).setFriction(800, 0);
@@ -53,7 +53,7 @@ export default class Playeralt extends Phaser.GameObjects.Sprite {
     this.healthbar = new Healthbar(scene,scene.cameras.main.width - 70, 20, 40, 200);
     this.scene = scene;
 
-    this.initControls()
+    this.initControls();
 
     this.timer;
 
@@ -81,7 +81,7 @@ export default class Playeralt extends Phaser.GameObjects.Sprite {
 
   getSpinningStatus(){
 
-     return this.spinning;
+    return this.spinning;
 
   }
 
@@ -108,7 +108,7 @@ export default class Playeralt extends Phaser.GameObjects.Sprite {
 
       if(cursors.up.isDown){
 
-          running = true;
+        running = true;
 
       }
     // ######################################
@@ -117,9 +117,9 @@ export default class Playeralt extends Phaser.GameObjects.Sprite {
 
       this.body.rotation = this.body.rotation + 5 ;
 
-       if(cursors.up.isDown){
+      if(cursors.up.isDown){
 
-          running = true;
+        running = true;
 
       }
     // ######################################

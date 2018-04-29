@@ -1,7 +1,7 @@
 //  Imports
 import * as config from '@/config';
 import Player from '@/objects/player';
-import Playeralt from '@/objects/playeralt';
+// import Playeralt from '@/objects/playeralt';
 import FogSprite from '@/objects/fog-sprite';
 
 
@@ -107,11 +107,11 @@ export default class Level extends Phaser.Scene {
     this.debugGraphics = this.add.graphics();
     this.drawDebug();
 
-    this.input.keyboard.on('keydown_A', (event) => {
+    this.input.keyboard.on('keydown_A', () => {
       this.character.healthbar.hurt(5);
     });
 
-    this.input.keyboard.on('keydown_S', (event) => {
+    this.input.keyboard.on('keydown_S', () => {
       this.character.healthbar.heal(5);
     });
   }
@@ -150,7 +150,7 @@ export default class Level extends Phaser.Scene {
     this.anims.create({
       key: 'health_item',
       frames: this.anims.generateFrameNumbers('healthUp', { start: 0, end: 3 }),
-    })
+    });
 
     // We convert all of the Tiled objects with an name 'can' (ID of 5) into sprites. They will get their width
     // & height from the Tiled tile object. Any custom properties on the tile object will also be
@@ -362,7 +362,7 @@ export default class Level extends Phaser.Scene {
       this.currentlyDeleting = true;
       let deadFog = this.fogSprites[toDelete[i]];
       let deadParticles = deadFog.particles;
-      let tween = this.tweens.add({
+      this.tweens.add({
         targets:  this.fogSprites[toDelete[i]],
         alpha: 0,
         ease: 'Power1',

@@ -15,7 +15,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y,speed,lifespan,fogTimeout=config.FOG_TIMEOUT) {
     super(scene, x, y, 'smoke-puff');
 
-  console.log("fog: " + fogTimeout);
+    // console.log("fog: " + fogTimeout);
 
     //angle in which the emitter emitts particles
     var emmiterAngleMax=45;
@@ -49,7 +49,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     //dx-> stepwidth in x direction
     //dy-> stepwidth in y direction
     // duration -> time till the emmiter moved to the goal
-    var tween = this.scene.tweens.add({
+    this.scene.tweens.add({
       targets: this,
       ease: 'Sine.easeInOut',
       x: { value: this.x+dx, duration:duration,ease:'Power2'},
@@ -69,7 +69,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
 
     //console.log(this.rotation);
     //console.log(rotation);
-    var tween = this.scene.tweens.add({
+    this.scene.tweens.add({
       targets: this,
       ease: 'Power2',
       x: { value: this.x+dx, duration:move_duration,ease:'Power2'},
@@ -98,8 +98,8 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
 
   calc_points(points,dt=1){
     var pol_function=this.calc_poly(points);
-    var x_values=[];
-    var y_values=[];
+    // var x_values=[];
+    // var y_values=[];
     let max = points[0][0];
     for (let i=0;i<points.length;i++)
     {
@@ -110,7 +110,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
 
     for (var i=0; i<max ;i=i+dt){
 
-      ret[i] = {x:i,y:pol_function(i)}
+      ret[i] = {x:i,y:pol_function(i)};
       // x_values[i]=i;
       // y_values[i]=pol_function(i);
     }
@@ -169,7 +169,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
       let p_x = particles[i].x;
       let p_y = particles[i].y;
       if (p_x >= c_x_min && p_x <= c_x_max && p_y >= c_y_min && p_y <= c_y_max )
-        overlapping.push(particles[i])
+        overlapping.push(particles[i]);
     }
     return overlapping;
   }

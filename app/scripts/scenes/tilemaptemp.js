@@ -26,7 +26,7 @@ export default class Tilemaptemp extends Phaser.Scene {
 
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
-    const label = this.add.text(x_mid, y_mid, 'I am Tilemap', {
+    this.add.text(x_mid, y_mid, 'I am Tilemap', {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',

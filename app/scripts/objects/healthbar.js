@@ -52,30 +52,30 @@ export default class Healthbar {
   }
 
   heal(amount) {
-      this.health = Math.min(this.maxHealth, this.health + amount);
-      this.updateHealthBar();
-      this.healSound.play();
+    this.health = Math.min(this.maxHealth, this.health + amount);
+    this.updateHealthBar();
+    this.healSound.play();
   }
 
   hurt(amount) {
-      this.health = Math.max(0, this.health - amount);
-      this.updateHealthBar();
+    this.health = Math.max(0, this.health - amount);
+    this.updateHealthBar();
 
-      if (this.health <= 0) {
-          this.gameOver();
-      } else if (!this.dangerSound.isPlaying){
-          this.dangerSound.play();
-      }
+    if (this.health <= 0) {
+      this.gameOver();
+    } else if (!this.dangerSound.isPlaying){
+      this.dangerSound.play();
+    }
   }
 
   gameOver() {
-      this.music1.stop();
-      this.music2.stop();
-      this.music3.stop();
-      this.music4.stop();
-      this.music5.stop();
+    this.music1.stop();
+    this.music2.stop();
+    this.music3.stop();
+    this.music4.stop();
+    this.music5.stop();
 
-      this.scene.startGameover();
+    this.scene.startGameover();
   }
 
   updateHealthBar() {
@@ -125,7 +125,7 @@ export default class Healthbar {
 
   }
 
-    /* accepts parameters
+  /* accepts parameters
    * h  Object = {h:x, s:y, v:z}
    * OR
    * h, s, v
@@ -133,7 +133,7 @@ export default class Healthbar {
   HSVtoRGB(h, s, v) {
     var r, g, b, i, f, p, q, t;
     if (arguments.length === 1) {
-        s = h.s, v = h.v, h = h.h;
+      s = h.s, v = h.v, h = h.h;
     }
     i = Math.floor(h * 6);
     f = h * 6 - i;
@@ -141,28 +141,28 @@ export default class Healthbar {
     q = v * (1 - f * s);
     t = v * (1 - (1 - f) * s);
     switch (i % 6) {
-        case 0: r = v, g = t, b = p; break;
-        case 1: r = q, g = v, b = p; break;
-        case 2: r = p, g = v, b = t; break;
-        case 3: r = p, g = q, b = v; break;
-        case 4: r = t, g = p, b = v; break;
-        case 5: r = v, g = p, b = q; break;
+    case 0: r = v, g = t, b = p; break;
+    case 1: r = q, g = v, b = p; break;
+    case 2: r = p, g = v, b = t; break;
+    case 3: r = p, g = q, b = v; break;
+    case 4: r = t, g = p, b = v; break;
+    case 5: r = v, g = p, b = q; break;
     }
     return {
-        r: Math.round(r * 255),
-        g: Math.round(g * 255),
-        b: Math.round(b * 255)
+      r: Math.round(r * 255),
+      g: Math.round(g * 255),
+      b: Math.round(b * 255)
     };
 
   }
 
   componentToHex(c) {
-      var hex = c.toString(16);
-      return hex.length == 1 ? "0" + hex : hex;
+    var hex = c.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
   }
 
   rgbToHex(rgb) {
-      return "0x" + this.componentToHex(rgb.r) + this.componentToHex(rgb.g) + this.componentToHex(rgb.b);
+    return '0x' + this.componentToHex(rgb.r) + this.componentToHex(rgb.g) + this.componentToHex(rgb.b);
   }
 
 }

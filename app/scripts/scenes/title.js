@@ -16,8 +16,8 @@ export default class Title extends Phaser.Scene {
    */
   create(/* data */) {
 
-    const x_mid = this.cameras.main.width / 2;
-    const y_mid = this.cameras.main.height / 2;
+    // const x_mid = this.cameras.main.width / 2;
+    // const y_mid = this.cameras.main.height / 2;
 
     var introScreen = this.add.image(0, 0, 'intro-screen').setOrigin(0);
 
@@ -72,7 +72,7 @@ export default class Title extends Phaser.Scene {
    */
   update(/* t, dt */) {
 
-      //this.dancingChar.rotation = this.dancingChar.rotation + 0.01;
+    //this.dancingChar.rotation = this.dancingChar.rotation + 0.01;
 
   }
 

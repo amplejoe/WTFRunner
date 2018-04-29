@@ -19,7 +19,7 @@ export default class Bernd extends Phaser.Scene {
   create(/* data */) {
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
-    const label = this.add.text(x_mid, y_mid, 'I am Tilemap', {
+    this.add.text(x_mid, y_mid, 'I am Tilemap', {
       font: '20px Arial',
       color: 'white',
       stroke: 'black',
@@ -61,12 +61,13 @@ export default class Bernd extends Phaser.Scene {
 
     this.healthbar = new Healthbar(this,this.cameras.main.width - 70, 20, 40, 200);
 
-    this.input.keyboard.on('keydown_A', (event) => {
-        this.healthbar.hurt(5);
+    this.input.keyboard.on('keydown_A', () => {
+      this.healthbar.hurt(5);
     });
 
-    this.input.keyboard.on('keydown_S', (event) => {
-        this.healthbar.heal(5);
+    this.input.keyboard.on('keydown_S', () => {
+
+      this.healthbar.heal(5);
     });
 
   }

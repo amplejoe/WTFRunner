@@ -38,7 +38,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       repeat: -1
     });
 
-     scene.anims.create({
+    scene.anims.create({
       key: 'dance',
       frames: scene.anims.generateFrameNumbers('player', {frames: [1,2,3,2,1,6,5,4,5,6]}),
       frameRate: 10,
@@ -127,7 +127,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   getSpinningStatus(){
 
-     return this.spinning;
+    return this.spinning;
 
   }
 
@@ -159,16 +159,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       if(cursors.up.isDown){
 
-          running[0] = true;
-          running[1] = false;
+        running[0] = true;
+        running[1] = false;
 
 
       }
 
       if(cursors.down.isDown){
 
-         running[1] = true;
-         running[0] = false;
+        running[1] = true;
+        running[0] = false;
 
 
       }
@@ -178,17 +178,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       this.body.rotation = this.body.rotation + 5 ;
 
-       if(cursors.up.isDown){
+      if(cursors.up.isDown){
 
-         running[0] = true;
-         running[1] = false;
+        running[0] = true;
+        running[1] = false;
 
 
       }
       if(cursors.down.isDown){
 
-         running[1] = true;
-         running[0] = false;
+        running[1] = true;
+        running[0] = false;
 
 
       }
@@ -200,8 +200,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       if(this.turnedAround === true){
 
-      this.body.rotation = this.body.rotation + 180;
-      this.turnedAround = false;
+        this.body.rotation = this.body.rotation + 180;
+        this.turnedAround = false;
 
       }
 
@@ -217,8 +217,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       if(this.turnedAround === false){
 
-      this.body.rotation = this.body.rotation + 180;
-      this.turnedAround = true;
+        this.body.rotation = this.body.rotation + 180;
+        this.turnedAround = true;
 
       }
 

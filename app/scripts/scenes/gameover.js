@@ -22,7 +22,7 @@ export default class Gameover extends Phaser.Scene {
    */
   create(/* data */) {
     const x_mid = this.cameras.main.width / 2;
-    const y_mid = this.cameras.main.height / 2;
+    // const y_mid = this.cameras.main.height / 2;
 
     // var introScreen = this.add.image(0, 0, 'intro-screen').setOrigin(0);
     this.add.image(0, 0, 'gameover').setOrigin(0);
@@ -53,7 +53,7 @@ export default class Gameover extends Phaser.Scene {
     startbutton.setOrigin(0.5).setInteractive();
     // startbutton.rotation = -1;
     startbutton.scaleX *= -1;
-    startbutton.on('pointerup', () => {this.scene.start('Title')});
+    startbutton.on('pointerup', () => {this.scene.start('Title');});
 
 
   }
