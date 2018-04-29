@@ -123,35 +123,38 @@ export default class Level extends Phaser.Scene {
     this.layerP = this.map.createDynamicLayer('start', this.tileset, 0, 0);
 
 
-    // objects
+    // old
     // this.cans = this.physics.add.group();
     // let can_can = this.map.createFromObjects('spins', 'can', 'powerUp', 5, true, false, this.cans); // step 2
-    // this.cans.create(can_can[0]).setVelocity(0,0);
-    // // let config = {
-    // //    // powerUp for the character
-    // //    key: 'powerUp',
-    // //    type: 'spritesheet',
-    // //    url: 'char/spin_item.png',
-    // //    config: {
-    // //      frameWidth : 128,
-    // //      frameHeight : 128
-    // //    }
-    // // };
-    // //
-    // // this.map.createFromObjects({name:'spins', id: 'can', spriteConfig: config}); // step 2
-    // this.anims.create({
-    //   key: 'spin_can',
-    //   frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3}),
-    //   frameRate: 30,
-    //   repeat: -1
-    // });
-    // for (let i = 0; i< this.cans.length; i++)
-    // {
-    //   console.log("can");
-    //   this.cans[i].body.immovable = true;
-    //   this.cans[i].animations.play('spin_can');
-    // }
+    // let finalcan = this.cans.create(can_can[0]).setVelocity(0,0);
 
+    // objects
+    // map = this.add.tilemap('map');
+    // var tiles = map.addTilesetImage('ground_1x1');
+    // var layer = map.createStaticLayer('Tile Layer', tiles);
+    // this.cans = this.physics.add.group();
+    this.anims.create({
+      key: 'spin_can',
+      frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3 }),
+      frameRate: 16,
+      repeat: -1
+    });
+
+    // We convert all of the Tiled objects with an ID of 5 into sprites. They will get their width
+    // & height from the Tiled tile object. Any custom properties on the tile object will also be
+    // passed to the sprite creator (e.g. one of the tile object's has an alpha of 0.5).
+    this.powerUpSprites = this.map.createFromObjects('spins', 5, { key: 'can' });
+
+
+    for (let i=0;i<this.powerUpSprites.length;i++)
+    {
+      // enable physics before resizing
+      this.physics.world.enable(this.powerUpSprites[i]);
+      this.powerUpSprites[i].setScale(config.POWERUP_SCALE);
+
+    }
+    // this.setScale(config.PLAYER_SCALE);
+    this.anims.play('spin_can', this.powerUpSprites);
 
 
     // console.log(tileset);
@@ -188,6 +191,23 @@ export default class Level extends Phaser.Scene {
     this.map.setCollision(colltiles, true, this.layerP);
     this.physics.add.collider(this.character, this.layerP);
     //this.physics.collide(this.character, this.layerP);
+
+    // powerups
+    this.powerups = this.physics.add.group();
+    for (let i=0;i<this.powerUpSprites.length;i++)
+    {
+
+      this.powerUpSprites[i].body.allowGravity = false;
+      this.powerUpSprites[i].body.immovable = true;
+      this.powerups.add(this.powerUpSprites[i]);
+    }
+
+    // console.log(this.powerups.children);
+    // this.collidedWithBomb = this.physics.collide(this.character , this.object);
+    // this.collidedWithPowerUp = this.physics.collide(this.character , this.powerups);
+
+    // group.children.iterate(createGem, this);
+
   }
 
   drawDebug ()
@@ -210,19 +230,21 @@ export default class Level extends Phaser.Scene {
     this.scene.start('Gameover', this.score);
   }
 
-  // checkCollision(){
-  //   this.collidedWithBomb = this.physics.collide(this.character , this.object);
-  //   this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
-  //   if(this.collidedWithBomb){
-  //     this.bombPickedUp = true;
-  //     this.object.destroy();
-  //   }
-  //
-  //   if(this.collidedWithPowerUp){
-  //     this.powerUpPickedUp = true;
-  //     this.powerUp.destroy();
-  //   }
-  // }
+  checkPlayerCollisions(){
+    // this.collidedWithBomb = this.physics.collide(this.character , this.object);
+    // if(this.collidedWithBomb){
+    //   this.bombPickedUp = true;
+    //   this.object.destroy();
+    // }
+
+    this.collidedWithPowerUp = this.physics.collide(this.character , this.powerups);
+    if(this.collidedWithPowerUp){
+      console.log("collided with powerup");
+      this.character.powerUpPickedUp = true;
+      // this.character.spinning = true;
+      // this.powerUp.destroy();
+    }
+  }
 
   /**
      *  Handles updates to game logic, physics and game objects.
@@ -234,6 +256,9 @@ export default class Level extends Phaser.Scene {
   update(t, dt) {
     // this.controls.update(dt);
     this.character.update();
+
+    // player collisions
+    this.checkPlayerCollisions();
 
     // score
     this.scoreCounter -= dt;

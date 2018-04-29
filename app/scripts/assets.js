@@ -106,7 +106,7 @@ export const gameAssets = [{
    type: 'spritesheet',
    url: 'char/spin_item.png',
    config: {
-     frameWidth : 128,
-     frameHeight : 128
+     frameWidth : 64,
+     frameHeight : 64
    }
 }];

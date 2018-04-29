@@ -23,13 +23,14 @@ export default class Gameover extends Phaser.Scene {
   create(/* data */) {
     const x_mid = this.cameras.main.width / 2;
     const y_mid = this.cameras.main.height / 2;
-    let msg = 'GAME OVER! (Score: '+ this.endScore+')';
+    let msg = 'GAME OVER!\nScore: '+ this.endScore+'';
     const label = this.add.text(x_mid, y_mid, msg, {
-      font: '20px Arial',
+      font: '40px Arial',
       color: 'white',
       stroke: 'black',
       strokeThickness: 6
     });
+    label.setOrigin(0.5, 0.5);
     this.gameoverSound = this.sound.add('gameoverSound');
     this.gameoverSound.play();
   }

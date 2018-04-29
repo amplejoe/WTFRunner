@@ -20,6 +20,7 @@ export const FOG_IMMUNITY_MS = 500;
 // export const MIN_DMG = 1;
 export const FOG_TIMEOUT = 3000;
 export const SCORE_INCREMENT_MS = 500;
+export const POWERUP_SCALE = 0.75;
 
 /**
  *  Game canvas width.
