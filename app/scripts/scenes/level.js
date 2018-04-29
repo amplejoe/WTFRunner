@@ -49,7 +49,10 @@ export default class Level extends Phaser.Scene {
 
     this.fogImmunity = 0;
     this.fogSprites = [];
-    this.createFogSprite(200,200,100,10000);
+    this.createFogSprite(0,0,100,10000);
+    this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,0,100,10000,60000 + (Math.random()-0.2) * 50000);
+    this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,90000 + (Math.random()-0.3) * 50000);
+    this.createFogSprite(0,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,120000 + (Math.random()-0.4) * 50000);
 
     if (config.DEBUG) this.setupDebug();
 
@@ -66,8 +69,8 @@ export default class Level extends Phaser.Scene {
 
   }
 
-  createFogSprite(x, y, speed, lifespan) {
-    var fog = new FogSprite(this, x, y, speed, lifespan);
+  createFogSprite(x, y, speed, lifespan, fogTimeout) {
+    var fog = new FogSprite(this, x, y, speed, lifespan, fogTimeout);
     // fog.make_damage(this.character);
     this.fogSprites.push(fog);
   }
@@ -145,10 +148,10 @@ export default class Level extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('healthUp', { start: 0, end: 3 }),
     })
 
-    // We convert all of the Tiled objects with an ID of 5 into sprites. They will get their width
+    // We convert all of the Tiled objects with an name 'can' (ID of 5) into sprites. They will get their width
     // & height from the Tiled tile object. Any custom properties on the tile object will also be
     // passed to the sprite creator (e.g. one of the tile object's has an alpha of 0.5).
-    this.powerUpSprites = this.map.createFromObjects('spins', 5, { key: 'can' });
+    this.powerUpSprites = this.map.createFromObjects('spins', 'can', { key: 'can' });
 
 
     for (let i=0;i<this.powerUpSprites.length;i++)
@@ -242,13 +245,14 @@ export default class Level extends Phaser.Scene {
     //   this.object.destroy();
     // }
 
-    this.collidedWithPowerUp = this.physics.collide(this.character , this.powerups);
-    if(this.collidedWithPowerUp){
-      console.log("collided with powerup");
-      this.character.powerUpPickedUp = true;
-      // this.character.spinning = true;
-      // this.powerUp.destroy();
-    }
+    this.collidedWithPowerUp = this.physics.collide(this.character , this.powerups,
+      (char,obj) => {
+        console.log("helo collision!" + obj);
+        this.character.addPowerUp();
+        this.powerups.remove(obj);
+        obj.destroy();
+        console.log(this.powerups);
+      });
   }
 
   /**
@@ -277,6 +281,10 @@ export default class Level extends Phaser.Scene {
     // hit timout
     this.fogImmunity -= dt;
     let canBeHit = (this.fogImmunity <= 0);
+    if (canBeHit)
+    {
+      if (this.character.spinning) canBeHit = false;
+    }
 
     for (let i=0; i<this.fogSprites.length; i++) {
       this.fogSprites[i].update(t, dt);
