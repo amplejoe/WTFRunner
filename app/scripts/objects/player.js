@@ -37,9 +37,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
       frameRate: 30,
       repeat: -1
     });
-    
-    
-    
+
+
+
 
     this.recievedBomb = false;
     this.recievedPowerUp = false;
@@ -47,7 +47,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.turnedAround = false;
     this.powerUpBarChanged = false;
     this.amountOfPowerUps = 0;
-    this.powerUps = [0,0,0]; 
+    this.powerUps = [0,0,0];
 
 
     //  Add this game object to the owner scene.
@@ -60,44 +60,44 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.timer;
 
   }
-  
+
   getAmountOfPowerUps(){
-      
-    return this.amountOfPowerUps;  
-      
+
+    return this.amountOfPowerUps;
+
   }
-  
+
   addPowerUp(){
-    
-    if(this.amountOfPowerUps < 3){        
+
+    if(this.amountOfPowerUps < 3){
       this.amountOfPowerUps = this.amountOfPowerUps + 1;
-      
+
       this.powerUps[this.amountOfPowerUps-1] = this.addPowerUpToBar(((this.amountOfPowerUps-1) * 14));
-          
-      
-      
+
+
+
     }
-  
+
   }
-  
+
   addPowerUpToBar(offset){
-            
+
     var powerUp = this.scene.physics.add.sprite((this.scene.cameras.main.width - 110) - offset, 40, 'powerUp', 4).setScale(0.3);
     powerUp.rotation = 0.3;
     powerUp.setScrollFactor(0);
-    
+
     return powerUp;
-      
+
   }
-  
+
   removePowerUpFromBar(){
-     
-            
+
+
     this.powerUps[this.amountOfPowerUps-1].destroy();
     this.powerUps[this.amountOfPowerUps-1] = 0;
     this.amountOfPowerUps = this.amountOfPowerUps - 1;
-    
-      
+
+
   }
 
   recieveBomb(){
@@ -119,9 +119,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
      return this.spinning;
 
   }
-  
+
   // remove powerUp on ENTER
- 
+
   updatePlayerPosition(keySpace, keyEnter, cursors){
 
     var running = [false,false];
@@ -133,12 +133,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     }else if(keyEnter.isDown && (this.amountOfPowerUps > 0) && (this.spinning === false)){ // WHEN ENTER IS PRESSED FOR POWERUP TO USE
 
-      this.removePowerUpFromBar();      
+      this.removePowerUpFromBar();
 
       this.anims.stop('run', true);
       this.anims.play('spin', true);
       this.spinning = true;
-      this.timer = this.scene.time.addEvent({ delay: 3000, callback: this.stopSpinning, callbackScope: this, repeat: false });
+      this.timer = this.scene.time.addEvent({ delay: config.CAN_INVINCIBILITY, callback: this.stopSpinning, callbackScope: this, repeat: false });
 
     }else if(cursors.left.isDown){ // WHEN LEFT IS PRESSED
 
@@ -151,7 +151,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
 
       }
-      
+
       if(cursors.down.isDown){
 
          running[1] = true;
@@ -241,7 +241,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   update()
   {
-      
+
     // player movement
     var running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
 
@@ -252,8 +252,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }else{
 
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);
-  
-    }  
-    
+
+    }
+
   }
 }
