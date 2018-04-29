@@ -17,12 +17,14 @@ export default class SplashScreen extends Phaser.Scene {
    *  @protected
    */
   create() {
+
     //  Display the splash screen graphic and its progress bar.
     this.showCover();
 
     //  Prepare the loader scene to load remaining assets.
     this.prepareLoaderScene();
     this.scene.launch('Loader');
+
   }
 
   //  ------------------------------------------------------------------------

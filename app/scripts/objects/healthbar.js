@@ -21,19 +21,23 @@ export default class Healthbar {
     var rect = new Phaser.Geom.Rectangle(x, y, w, h);
     this.healthBarBack.fillRectShape(rect);
 
-    this.music1 = this.scene.sound.add('music1');
-    this.music1.play({ loop: true });
-    this.music2 = this.scene.sound.add('music2');
-    this.music2.play({ loop: true });
-    this.music3 = this.scene.sound.add('music3');
-    this.music3.play({ loop: true });
-    this.music4 = this.scene.sound.add('music4');
-    this.music4.play({ loop: true });
-    this.music5 = this.scene.sound.add('music5');
-    this.music5.play({ loop: true });
+    this.riseSound = this.scene.sound.add('riseSound');
+    this.riseSound.play();
 
     this.dangerSound = this.scene.sound.add('dangerSound');
     this.healSound = this.scene.sound.add('healSound');
+
+    this.music1 = this.scene.sound.add('music1');
+    this.music2 = this.scene.sound.add('music2');
+    this.music3 = this.scene.sound.add('music3');
+    this.music4 = this.scene.sound.add('music4');
+    this.music5 = this.scene.sound.add('music5');
+
+    this.music1.play({ loop: true });
+    this.music2.play({ loop: true });
+    this.music3.play({ loop: true });
+    this.music4.play({ loop: true });
+    this.music5.play({ loop: true });
 
     this.music1.mute = false;
     this.music2.mute = true;

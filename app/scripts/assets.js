@@ -54,6 +54,14 @@ export const gameAssets = [{
   type: 'tilemapTiledJSON',
   url: 'tilemaps/wtf_map_100x100.json'
 },{
+  key: 'startMusic',
+  type: 'audio',
+  url: 'audio/start.mp3'
+},{
+  key: 'riseSound',
+  type: 'audio',
+  url: 'audio/rise.mp3'
+},{
   key: 'music1',
   type: 'audio',
   url: 'audio/music1.mp3'
