@@ -15,6 +15,9 @@ export const splashScreenAssets = [{
 }, {
   key: 'progress-bar',
   type: 'image'
+}, {
+  key: 'intro-screen',
+  type: 'image'
 }];
 
 /**
