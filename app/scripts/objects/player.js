@@ -37,9 +37,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
       frameRate: 30,
       repeat: -1
     });
-
-
-
+    
+     scene.anims.create({
+      key: 'dance',
+      frames: scene.anims.generateFrameNumbers('player', {frames: [1,2,3,2,1,6,5,4,5,6]}),
+      frameRate: 10,
+      repeat: -1
+    });
+    
+    
 
     this.recievedBomb = false;
     this.recievedPowerUp = false;
@@ -82,7 +88,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   addPowerUpToBar(offset){
 
-    var powerUp = this.scene.physics.add.sprite((this.scene.cameras.main.width - 110) - offset, 40, 'powerUp', 4).setScale(0.3);
+
+    var powerUp = this.scene.physics.add.sprite((this.scene.cameras.main.width - 110) - offset, 40, 'powerUp', 4).setScale(0.5);
     powerUp.rotation = 0.3;
     powerUp.setScrollFactor(0);
 
