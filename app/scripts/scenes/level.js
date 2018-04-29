@@ -36,6 +36,7 @@ export default class Level extends Phaser.Scene {
 
     this.layerP.setScale(config.ZOOM_FACTOR);
     this.layerG.setScale(config.ZOOM_FACTOR);
+    // this.layerSpins.setScale(config.ZOOM_FACTOR);
 
     // init animated tiles (DONT SCALE AFTER!!)
     this.sys.animatedTiles.init(this.map);
@@ -118,8 +119,38 @@ export default class Level extends Phaser.Scene {
     this.tileset = this.map.addTilesetImage('wtf_sheet','level_sprites');
 
     this.layerG = this.map.createDynamicLayer('ground', this.tileset, 0, 0);
+    // this.layerSpins = this.map.createDynamicLayer('spins', this.tileset, 0, 0);
     this.layerP = this.map.createDynamicLayer('start', this.tileset, 0, 0);
 
+
+    // objects
+    // this.cans = this.physics.add.group();
+    // let can_can = this.map.createFromObjects('spins', 'can', 'powerUp', 5, true, false, this.cans); // step 2
+    // this.cans.create(can_can[0]).setVelocity(0,0);
+    // // let config = {
+    // //    // powerUp for the character
+    // //    key: 'powerUp',
+    // //    type: 'spritesheet',
+    // //    url: 'char/spin_item.png',
+    // //    config: {
+    // //      frameWidth : 128,
+    // //      frameHeight : 128
+    // //    }
+    // // };
+    // //
+    // // this.map.createFromObjects({name:'spins', id: 'can', spriteConfig: config}); // step 2
+    // this.anims.create({
+    //   key: 'spin_can',
+    //   frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3}),
+    //   frameRate: 30,
+    //   repeat: -1
+    // });
+    // for (let i = 0; i< this.cans.length; i++)
+    // {
+    //   console.log("can");
+    //   this.cans[i].body.immovable = true;
+    //   this.cans[i].animations.play('spin_can');
+    // }
 
 
 
