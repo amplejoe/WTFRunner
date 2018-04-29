@@ -139,6 +139,11 @@ export default class Level extends Phaser.Scene {
       frameRate: 16,
       repeat: -1
     });
+    
+    this.anims.create({
+      key: 'health_item',
+      frames: this.anims.generateFrameNumbers('healthUp', { start: 0, end: 3 }),
+    })
 
     // We convert all of the Tiled objects with an ID of 5 into sprites. They will get their width
     // & height from the Tiled tile object. Any custom properties on the tile object will also be

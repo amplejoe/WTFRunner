@@ -109,4 +109,13 @@ export const gameAssets = [{
      frameWidth : 64,
      frameHeight : 64
    }
+},{
+   // healthUp for the character
+   key: 'healthUp',
+   type: 'spritesheet',
+   url: 'char/health_item.png',
+   config: {
+     frameWidth : 64,
+     frameHeight : 64
+   }
 }];
