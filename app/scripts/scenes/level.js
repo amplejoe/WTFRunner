@@ -286,7 +286,10 @@ export default class Level extends Phaser.Scene {
       if (canBeHit)
       {
         let isHit = this.fogSprites[i].calcPlayerHit(this.character);
-        if (isHit) this.fogImmunity = config.FOG_IMMUNITY_MS;
+        if (isHit) {
+          this.fogImmunity = config.FOG_IMMUNITY_MS;
+          // this.cameras.main.shake(1000);
+        }
       }
 
     }
