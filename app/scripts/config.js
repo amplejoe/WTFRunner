@@ -12,8 +12,9 @@ import * as scenes from '@/scenes';
  *  WTFRunner settings
  */
 export const DEBUG = true;
-export const ZOOM_FACTOR = 0.5;
-export const PLAYER_VELOCITY = 1000;
+export const ZOOM_FACTOR = 1.0;
+export const PLAYER_SCALE = 0.35;
+export const PLAYER_VELOCITY = 450;
 
 /**
  *  Game canvas width.
@@ -87,8 +88,10 @@ export const physics = {
    *
    *  This engine becomes available under a `physics` property on game scenes.
    */
-  //arcade: {
-  //}
+  arcade: {
+    gravity: 100,
+    debug: DEBUG
+  },
 
   /**
    *  Matter.js parameters.
@@ -103,9 +106,8 @@ export const physics = {
    *
    *  This engine becomes available under a `impact` property on game scenes.
    */
-  arcade:  {
-    gravity: 100,
-    debug: DEBUG
+  impact:  {
+    gravity: 100
   }
 };
 

@@ -71,6 +71,18 @@ export const gameAssets = [{
   type: 'audio',
   url: 'audio/music5.mp3'
 },{
+  key: 'gameoverSound',
+  type: 'audio',
+  url: 'audio/gameover.mp3'
+},{
+  key: 'dangerSound',
+  type: 'audio',
+  url: 'audio/danger.mp3'
+},{
+  key: 'collectSound',
+  type: 'audio',
+  url: 'audio/collect.mp3'
+},{
   // character / player
    key: 'player',
    type: 'spritesheet',
@@ -96,5 +108,5 @@ export const gameAssets = [{
    config: {
      frameWidth : 128,
      frameHeight : 128
-   } 
+   }
 }];

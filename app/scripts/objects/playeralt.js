@@ -2,12 +2,12 @@
 import * as config from '@/config';
 import Healthbar from '@/objects/healthbar';
 
-export default class Player extends Phaser.GameObjects.Sprite {
+export default class Playeralt extends Phaser.GameObjects.Sprite {
   /**
    *  My custom sprite.
    *
    *  @constructor
-   *  @class Player
+   *  @class Playeralt
    *  @extends Phaser.GameObjects.Sprite
    *  @param {Phaser.Scene} scene - The scene that owns this sprite.
    *  @param {number} x - The horizontal coordinate relative to the scene viewport.
@@ -16,13 +16,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
 
+    console.log(scene.impact);
+    scene.impact.world.enable(this);
 
-    scene.physics.world.enable(this);
-    this.body.setCollideWorldBounds(true);
-    this.body.setGravity(0);
+    this.setMaxVelocity(300, 400).setFriction(800, 0);
+    this.body.accelGround = 1200;
+    this.body.accelAir = 600;
+    this.body.jumpSpeed = 300;
+
+    // this.body.setCollideWorldBounds(true);
+    // this.body.setGravity(0);
     // this.body.setScale(config.ZOOM_FACTOR);
 
-    this.setScale(config.PLAYER_SCALE);
+    this.setScale(config.ZOOM_FACTOR);
 
     scene.anims.create({
       key: 'run',
@@ -41,8 +47,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.recievedBomb = false;
     this.recievedPowerUp = false;
     this.spinning = false;
-    this.turnedAround = false;
-
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
@@ -83,9 +87,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
 
   updatePlayerPosition(keySpace, keyEnter, cursors){
-      
-    var running = [false,false];
-    
+
+    var running = false;
 
     if(keySpace.isDown && this.recievedBomb){  // WHEN SPACE IS PRESSED FOR BOMB TO USE
 
@@ -105,16 +108,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       if(cursors.up.isDown){
 
-          running[0] = true;
-          running[1] = false;
-          
-
-      }
-      if(cursors.down.isDown){
-        
-         running[1] = true;
-         running[0] = false;
-         
+          running = true;
 
       }
     // ######################################
@@ -124,52 +118,24 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.rotation = this.body.rotation + 5 ;
 
        if(cursors.up.isDown){
-        
-         running[0] = true;
-         running[1] = false;
-         
 
-      }
-      if(cursors.down.isDown){
-        
-         running[1] = true;
-         running[0] = false;
-         
+          running = true;
 
       }
     // ######################################
 
     }else if(cursors.up.isDown){ // WHEN UP IS PRESSED
 
-      running[0] = true;  
+      running = true;
 
-      if(this.turnedAround === true){
-            
-      this.body.rotation = this.body.rotation + 180;
-      this.turnedAround = false;  
-   
-      }
-
-      if(!this.spinning){
+      if(running && !this.spinning){
         this.anims.play('run', true);
       }
 
     // ######################################
 
     }else if(cursors.down.isDown){ // WHEN DOWN IS PRESSED
-      
-      running[1] = true;
-      
-      if(this.turnedAround === false){
-      
-      this.body.rotation = this.body.rotation + 180;
-      this.turnedAround = true;
-    
-      }  
- 
-      if(!this.spinning){
-        this.anims.play('run', true);
-      }
+
 
     }else{
 
@@ -180,8 +146,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(0);
       this.body.setVelocityY(0);
 
-      running[0] = false;
-      running[1] = false;
+      running = false;
 
     }
 
@@ -200,18 +165,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
   update()
   {
     // player movement
-    var running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
+    this.running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
 
-    if(running[0] === true){
-      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
-    }else if(running[1] === true){
+    if(this.running){
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
     }else{
-        
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);
-
-                
-    }    
+    }
 
   }
 }
