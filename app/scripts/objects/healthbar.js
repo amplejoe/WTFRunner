@@ -32,6 +32,8 @@ export default class Healthbar {
     this.music5 = this.scene.sound.add('music5');
     this.music5.play({ loop: true });
 
+    this.dangerSound = this.scene.sound.add('dangerSound');
+    this.healSound = this.scene.sound.add('collectSound');
 
     this.music1.mute = false;
     this.music2.mute = true;
@@ -48,13 +50,17 @@ export default class Healthbar {
   heal(amount) {
       this.health = Math.min(this.maxHealth, this.health + amount);
       this.updateHealthBar();
+      this.healSound.play();
   }
 
   hurt(amount) {
       this.health = Math.max(0, this.health - amount);
       this.updateHealthBar();
+
       if (this.health <= 0) {
           this.gameOver();
+      } else if (!this.dangerSound.isPlaying){
+          this.dangerSound.play();
       }
   }
 
@@ -66,7 +72,6 @@ export default class Healthbar {
       this.music5.stop();
 
       this.scene.startGameover();
-      // console.log("GAME OVER");
   }
 
   updateHealthBar() {
