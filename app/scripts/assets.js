@@ -18,9 +18,6 @@ export const splashScreenAssets = [{
 }, {
   key: 'intro-screen',
   type: 'image'
-},{
-  key: 'gameover',
-  type: 'image'
 }];
 
 /**
@@ -28,6 +25,9 @@ export const splashScreenAssets = [{
  */
 export const gameAssets = [{
   key: 'logo',
+  type: 'image'
+},{
+  key: 'gameover',
   type: 'image'
 },{
   key: 'desert_sprites',
@@ -105,6 +105,10 @@ export const gameAssets = [{
   type: 'audio',
   url: 'audio/invincible.mp3'
 },{
+  key: 'destroy',
+  type: 'audio',
+  url: 'audio/destroy.mp3'
+},{
   // character / player
    key: 'player',
    type: 'spritesheet',
@@ -139,5 +143,17 @@ export const gameAssets = [{
    config: {
      frameWidth : 64,
      frameHeight : 64
+   }
+}, {
+  key: 'retry',
+  type: 'image'
+},{
+   // healthUp for the character
+   key: 'start',
+   type: 'spritesheet',
+   url: 'start.png',
+   config: {
+     frameWidth : 233,
+     frameHeight : 153
    }
 }];
