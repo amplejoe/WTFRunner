@@ -86,6 +86,14 @@ export const gameAssets = [{
   type: 'audio',
   url: 'audio/collect.mp3'
 },{
+  key: 'healSound',
+  type: 'audio',
+  url: 'audio/heal.mp3'
+},{
+  key: 'invincibleSound',
+  type: 'audio',
+  url: 'audio/invincible.mp3'
+},{
   // character / player
    key: 'player',
    type: 'spritesheet',

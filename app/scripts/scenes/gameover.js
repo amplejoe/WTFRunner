@@ -33,6 +33,15 @@ export default class Gameover extends Phaser.Scene {
     label.setOrigin(0.5, 0.5);
     this.gameoverSound = this.sound.add('gameoverSound');
     this.gameoverSound.play();
+
+    const retrylabel = this.add.text(x_mid, y_mid*1.2, 'Retry', {
+      font: '20px Arial',
+      color: 'white',
+      stroke: 'black',
+      strokeThickness: 6
+    });
+    retrylabel.setOrigin(0.5, 0.5).setInteractive();
+    retrylabel.on('pointerup', () => this.scene.start('Game'));
   }
 
   /**
