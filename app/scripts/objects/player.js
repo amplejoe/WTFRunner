@@ -92,7 +92,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   addPowerUpToBar(offset){
 
 
-    var powerUp = this.scene.physics.add.sprite((this.scene.cameras.main.width - 110) - offset, 40, 'powerUp', 4).setScale(0.5);
+    var powerUp = this.scene.physics.add.sprite((this.scene.cameras.main.width - 110) - offset, 40, 'powerUp').setScale(0.5);
     powerUp.rotation = 0.3;
     powerUp.setScrollFactor(0);
     this.collectSound.play();
