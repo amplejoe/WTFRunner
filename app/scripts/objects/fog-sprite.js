@@ -1,3 +1,6 @@
+//  Imports
+import * as config from '@/config';
+
 export default class FogSprite extends Phaser.GameObjects.Sprite {
   /**
    *  My custom sprite.
@@ -34,6 +37,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this.emitter);
     //this.scene.physics.world.enable(this.particles);
 
+    this.fogTimeout = config.FOG_TIMEOUT;
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
@@ -72,22 +76,22 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     });
 
   }
-  make_damage(player){
-    var distance=Math.hypot(this.x-player.x, this.y-player.y);
-    var damage = 0;
-    if (distance <= 0) damage = 100;
-    else
-    {
-      damage=(this.emitter.lifespan.propertyValue)*(1/(distance*distance+1));
-    }
-    if (damage > 100) damage = 100;
-    // console.log("damage" + damage);
-    // console.log("distance" + distance);
-    // console.log("espeed" + this.emitter.speed);
-    player.healthbar.hurt(damage);
-    // return damage;
-
-  }
+  // make_damage(player){
+  //   var distance=Math.hypot(this.x-player.x, this.y-player.y);
+  //   var damage = 0;
+  //   if (distance <= 0) damage = 100;
+  //   else
+  //   {
+  //     damage=(this.emitter.lifespan.propertyValue)*(1/(distance*distance+1));
+  //   }
+  //   if (damage > 100) damage = 100;
+  //   // console.log("damage" + damage);
+  //   // console.log("distance" + distance);
+  //   // console.log("espeed" + this.emitter.speed);
+  //   player.healthbar.hurt(damage);
+  //   // return damage;
+  //
+  // }
 
 
   calc_points(points,dt=1){
@@ -134,9 +138,58 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     };
   }
 
-  update()
+  getParticleOverlap(character)
   {
-    // console.log(this.emitter);
+    let particles = this.emitter.alive;
+    let c_x_min = character.x - (character.width*config.PLAYER_SCALE/2);
+    let c_x_max = character.x + (character.width*config.PLAYER_SCALE/2);
+    let c_y_min = character.y - (character.height*config.PLAYER_SCALE/2);
+    let c_y_max = character.y + (character.height*config.PLAYER_SCALE/2);
+    // console.log(particles);
+    let overlapping = [];
+    for (let i=0;i<particles.length;i++)
+    {
+      let p_x = particles[i].x;
+      let p_y = particles[i].y;
+      if (p_x >= c_x_min && p_x <= c_x_max && p_y >= c_y_min && p_y <= c_y_max )
+        overlapping.push(particles[i])
+    }
+    return overlapping;
+  }
+
+  damage(character,overlapping)
+  {
+    for (let i=0; i<overlapping.length; i++)
+    {
+      let life = overlapping[i].life;
+      // console.log(overlapping[i]);
+      let curLifetime = overlapping[i].lifeCurrent;
+      // console.log();
+      let dmg = curLifetime/life * config.MAX_DMG;
+      character.healthbar.hurt(dmg);
+    }
+  }
+
+  calcPlayerHit(character)
+  {
+    let overlappingParticles = this.getParticleOverlap(character);
+    this.damage(character, overlappingParticles);
+    return overlappingParticles.length > 0;
+  }
+
+
+  update(t, dt)
+  {
+    this.fogTimeout -= dt;
+    if (this.fogTimeout < 0)
+    {
+      let c = Math.max(0.2, (100000 - t) / 100000);
+      this.fogTimeout = (config.FOG_TIMEOUT + config.FOG_TIMEOUT * (Math.random() - 0.5)) * c;
+      this.move_direction(
+        this.scene.character.x + (Math.random() - 0.5) * 256,
+        this.scene.character.y + (Math.random() - 0.5) * 256,
+        this.fogTimeout + (Math.random() - 0.5) * this.fogTimeout);
+    }
   }
 
 

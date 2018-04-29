@@ -31,7 +31,7 @@ export default class Healthbar {
     this.music4.play({ loop: true });
     this.music5 = this.scene.sound.add('music5');
     this.music5.play({ loop: true });
-    this.gameoverSound = this.scene.sound.add('gameoverSound');
+
 
     this.music1.mute = false;
     this.music2.mute = true;
@@ -64,8 +64,9 @@ export default class Healthbar {
       this.music3.stop();
       this.music4.stop();
       this.music5.stop();
-      this.gameoverSound.play();
-      alert("GAME OVER");
+
+      this.scene.startGameover();
+      // console.log("GAME OVER");
   }
 
   updateHealthBar() {
