@@ -736,30 +736,6 @@
                  "width":64,
                  "x":540,
                  "y":1240
-                }, 
-                {
-                 "gid":137,
-                 "height":64,
-                 "id":63,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":7209.66666666667,
-                 "y":3157
-                }, 
-                {
-                 "gid":137,
-                 "height":64,
-                 "id":64,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":-2407,
-                 "y":-201.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -767,7 +743,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":65,
+ "nextobjectid":66,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
@@ -1675,8 +1651,17 @@
          "tilewidth":64
         }, 
         {
+         "columns":4,
          "firstgid":140,
-         "source":"..\/tilemap\/health_item.tsx"
+         "image":"..\/tilemap\/health_item.png",
+         "imageheight":64,
+         "imagewidth":256,
+         "margin":0,
+         "name":"health_item",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":64,
+         "tilewidth":64
         }],
  "tilewidth":64,
  "type":"map",
