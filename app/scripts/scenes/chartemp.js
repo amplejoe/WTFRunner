@@ -93,6 +93,14 @@ export default class Chartemp extends Phaser.Scene {
     this.powerUp.setCollideWorldBounds(true);
     this.powerUp.body.setGravity(0);
     
+    this.powerUp1 = this.physics.add.sprite(150, 250, 'powerUp', 4).setScale(0.5);
+    this.powerUp1.setCollideWorldBounds(true);
+    this.powerUp1.body.setGravity(0);
+    
+    this.powerUp2 = this.physics.add.sprite(200, 250, 'powerUp', 4).setScale(0.5);
+    this.powerUp2.setCollideWorldBounds(true);
+    this.powerUp2.body.setGravity(0);
+    
     this.anims.create({
     key: 'powerUpItem',
     frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3 }),
@@ -108,7 +116,6 @@ export default class Chartemp extends Phaser.Scene {
       
     this.physics.world.setBounds(0, 0, this.cameras.main.width, this.cameras.main.height);  
       
-  
   }
   
   initInput(){
@@ -123,6 +130,8 @@ export default class Chartemp extends Phaser.Scene {
       
       this.collidedWithBomb = this.physics.collide(this.character , this.object);
       this.collidedWithPowerUp = this.physics.collide(this.character , this.powerUp);
+      this.collidedWithPowerUp1 = this.physics.collide(this.character , this.powerUp1);
+      this.collidedWithPowerUp2 = this.physics.collide(this.character , this.powerUp2);
       
       if(this.collidedWithBomb){
       
@@ -133,8 +142,22 @@ export default class Chartemp extends Phaser.Scene {
       
       if(this.collidedWithPowerUp){
           
-        this.character.recievePowerUp();
+        this.character.addPowerUp();
         this.powerUp.destroy();
+          
+      }
+      
+      if(this.collidedWithPowerUp1){
+          
+        this.character.addPowerUp();
+        this.powerUp1.destroy();
+          
+      }
+      
+      if(this.collidedWithPowerUp2){
+          
+        this.character.addPowerUp();
+        this.powerUp2.destroy();
           
       }
       
