@@ -4,10 +4,13 @@
 
 ---
 
-Congratulations, your new project is ready!
+Mr. Wobble WTF Runner Adventure
 
-Follow the instructions below and start developing your games right away.
+The amazing adventure starts with Mr. Wobble eating too much radioactive chili yesterday, well, maybe that doesn't have anything to do with our story, maybe that's  a tale for a prequel...
 
+Today Mr. Wobble decided to stop cursing. It's been one of his bad habits ...  :(
+
+To be successful, he decided to start his good deed with only saying "What the Fooooog!!!", but little did he know his friendly neighborhood fog (who are in no way connected to the chili) did not enjoy it, and thus begins the endless adventure of running away from a gang of angry fog! 
 
 ## First steps
 
@@ -26,17 +29,3 @@ yarn dist      # Prepares the game for distribution.
 yarn format    # Uses ESLint to format and remove lint issues.
 yarn lint      # Checks scripts for lint issues using ESLint.
 ```
-
-## Tutorial
-
-No idea of what to do next? Follow this [tutorial][t] and learn more about
-Phaser 3 and `generator-phaser-plus`.
-
-[t]: https://github.com/rblopes/generator-phaser-plus#a-brief-tutorial
-
-
-## License
-
-Should you consider distributing your game as an open source project, please
-[choose and include a LICENSE file](http://choosealicense.com/) for your
-project.
