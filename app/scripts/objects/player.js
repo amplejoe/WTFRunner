@@ -83,9 +83,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
 
   updatePlayerPosition(keySpace, keyEnter, cursors){
-      
+
     var running = [false,false];
-    
+
 
     if(keySpace.isDown && this.recievedBomb){  // WHEN SPACE IS PRESSED FOR BOMB TO USE
 
@@ -107,14 +107,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
           running[0] = true;
           running[1] = false;
-          
+
 
       }
       if(cursors.down.isDown){
-        
+
          running[1] = true;
          running[0] = false;
-         
+
 
       }
     // ######################################
@@ -124,30 +124,30 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.rotation = this.body.rotation + 5 ;
 
        if(cursors.up.isDown){
-        
+
          running[0] = true;
          running[1] = false;
-         
+
 
       }
       if(cursors.down.isDown){
-        
+
          running[1] = true;
          running[0] = false;
-         
+
 
       }
     // ######################################
 
     }else if(cursors.up.isDown){ // WHEN UP IS PRESSED
 
-      running[0] = true;  
+      running[0] = true;
 
       if(this.turnedAround === true){
-            
+
       this.body.rotation = this.body.rotation + 180;
-      this.turnedAround = false;  
-   
+      this.turnedAround = false;
+
       }
 
       if(!this.spinning){
@@ -157,16 +157,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // ######################################
 
     }else if(cursors.down.isDown){ // WHEN DOWN IS PRESSED
-      
+
       running[1] = true;
-      
+
       if(this.turnedAround === false){
-      
+
       this.body.rotation = this.body.rotation + 180;
       this.turnedAround = true;
-    
-      }  
- 
+
+      }
+
       if(!this.spinning){
         this.anims.play('run', true);
       }
@@ -207,11 +207,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }else if(running[1] === true){
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
     }else{
-        
+
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);
 
-                
-    }    
+
+    }
 
   }
 }

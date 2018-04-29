@@ -37,6 +37,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this.emitter);
     //this.scene.physics.world.enable(this.particles);
 
+    this.fogTimeout = config.FOG_TIMEOUT;
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
@@ -176,10 +177,19 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     return overlappingParticles.length > 0;
   }
 
-  update()
+
+  update(t, dt)
   {
-
-
+    this.fogTimeout -= dt;
+    if (this.fogTimeout < 0)
+    {
+      let c = Math.max(0.2, (100000 - t) / 100000);
+      this.fogTimeout = (config.FOG_TIMEOUT + config.FOG_TIMEOUT * (Math.random() - 0.5)) * c;
+      this.move_direction(
+        this.scene.character.x + (Math.random() - 0.5) * 256,
+        this.scene.character.y + (Math.random() - 0.5) * 256,
+        this.fogTimeout + (Math.random() - 0.5) * this.fogTimeout);
+    }
   }
 
 

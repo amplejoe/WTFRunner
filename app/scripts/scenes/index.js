@@ -14,3 +14,4 @@ export {default as Title} from './title';
 export {default as Bernd} from './bernd';
 export {default as Tilemaptemp} from './tilemaptemp';
 export {default as Level} from './level';
+export {default as Gameover} from './gameover';

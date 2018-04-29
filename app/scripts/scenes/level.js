@@ -44,20 +44,21 @@ export default class Level extends Phaser.Scene {
     this.sys.animatedTiles.resume(0,0);
     this.sys.animatedTiles.updateAnimatedTiles();
 
-
-
     this.setupCameras();
     this.setupControls();
 
-    this.fog = new FogSprite(this, 200,200,100, 10000);
-
-    // this.fog.move_direction(300, 300, 2000);
-    // this.fog.make_damage(this.character);
-    this.fogTimeout = 2000;
     this.fogImmunity = 0;
+    this.fogSprites = [];
+    this.createFogSprite(200,200,100,10000);
 
     if (config.DEBUG) this.setupDebug();
 
+  }
+
+  createFogSprite(x, y, speed, lifespan) {
+    var fog = new FogSprite(this, x, y, speed, lifespan);
+    // fog.make_damage(this.character);
+    this.fogSprites.push(fog);
   }
 
   setupControls()
@@ -189,21 +190,17 @@ export default class Level extends Phaser.Scene {
     this.character.update();
 
     this.fogImmunity -= dt;
-    if (this.fogImmunity <= 0)
-    {
-      let isHit = this.fog.calcPlayerHit(this.character);
+    let canBeHit = (this.fogImmunity <= 0);
 
-      if (isHit) this.fogImmunity = config.FOG_IMMUNITY_MS;
+    for (let i=0; i<this.fogSprites.length; i++) {
+      this.fogSprites[i].update(t, dt);
+      if (canBeHit)
+      {
+        let isHit = this.fogSprites[i].calcPlayerHit(this.character);
+        if (isHit) this.fogImmunity = config.FOG_IMMUNITY_MS;
+      }
+
     }
-
-    this.fogTimeout -= dt;
-    if (this.fogTimeout <= 0)
-    {
-
-      this.fogTimeout = 2000;
-      this.fog.move_direction(this.character.x, this.character.y, 2000);
-    }
-
 
   }
 }

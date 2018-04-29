@@ -18,6 +18,7 @@ export const PLAYER_VELOCITY = 450;
 export const MAX_DMG = 10;
 export const FOG_IMMUNITY_MS = 500;
 // export const MIN_DMG = 1;
+export const FOG_TIMEOUT = 3000;
 
 /**
  *  Game canvas width.
