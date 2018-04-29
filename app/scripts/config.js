@@ -11,10 +11,13 @@ import * as scenes from '@/scenes';
 /**
  *  WTFRunner settings
  */
-export const DEBUG = true;
+export const DEBUG = false;
 export const ZOOM_FACTOR = 1.0;
 export const PLAYER_SCALE = 0.35;
 export const PLAYER_VELOCITY = 450;
+export const MAX_DMG = 10;
+export const FOG_IMMUNITY_MS = 500;
+// export const MIN_DMG = 1;
 
 /**
  *  Game canvas width.

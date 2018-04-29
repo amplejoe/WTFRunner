@@ -65,7 +65,7 @@ export default class Healthbar {
       this.music4.stop();
       this.music5.stop();
       this.gameoverSound.play();
-      alert("GAME OVER");
+      console.log("GAME OVER");
   }
 
   updateHealthBar() {

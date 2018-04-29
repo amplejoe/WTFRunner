@@ -52,8 +52,9 @@ export default class Level extends Phaser.Scene {
     this.fog = new FogSprite(this, 200,200,100, 10000);
 
     // this.fog.move_direction(300, 300, 2000);
-    this.fog.make_damage(this.character);
+    // this.fog.make_damage(this.character);
     this.fogTimeout = 2000;
+    this.fogImmunity = 0;
 
     if (config.DEBUG) this.setupDebug();
 
@@ -187,10 +188,18 @@ export default class Level extends Phaser.Scene {
     // this.controls.update(dt);
     this.character.update();
 
-    this.fogTimeout -= dt;
-    if (this.fogTimeout < 0)
+    this.fogImmunity -= dt;
+    if (this.fogImmunity <= 0)
     {
-      this.fog.update();
+      let isHit = this.fog.calcPlayerHit(this.character);
+
+      if (isHit) this.fogImmunity = config.FOG_IMMUNITY_MS;
+    }
+
+    this.fogTimeout -= dt;
+    if (this.fogTimeout <= 0)
+    {
+
       this.fogTimeout = 2000;
       this.fog.move_direction(this.character.x, this.character.y, 2000);
     }
