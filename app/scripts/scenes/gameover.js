@@ -23,7 +23,7 @@ export default class Gameover extends Phaser.Scene {
       stroke: 'black',
       strokeThickness: 6
     });
-    this.gameoverSound = this.scene.sound.add('gameoverSound');
+    this.gameoverSound = this.sound.add('gameoverSound');
     this.gameoverSound.play();
   }
 
