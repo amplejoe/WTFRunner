@@ -41,6 +41,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.recievedBomb = false;
     this.recievedPowerUp = false;
     this.spinning = false;
+    this.turnedAround = false;
+
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
@@ -81,8 +83,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
 
   updatePlayerPosition(keySpace, keyEnter, cursors){
-
-    var running = false;
+      
+    var running = [false,false];
+    
 
     if(keySpace.isDown && this.recievedBomb){  // WHEN SPACE IS PRESSED FOR BOMB TO USE
     
@@ -102,7 +105,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       if(cursors.up.isDown){
 
-          running = true;
+          running[0] = true;
+          running[1] = false;
+          
+
+      }
+      if(cursors.down.isDown){
+        
+         running[1] = true;
+         running[0] = false;
+         
 
       }
     // ######################################
@@ -112,24 +124,52 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.rotation = this.body.rotation + 5 ;
 
        if(cursors.up.isDown){
+        
+         running[0] = true;
+         running[1] = false;
+         
 
-          running = true;
+      }
+      if(cursors.down.isDown){
+        
+         running[1] = true;
+         running[0] = false;
+         
 
       }
     // ######################################
 
     }else if(cursors.up.isDown){ // WHEN UP IS PRESSED
 
-      running = true;
+      running[0] = true;  
 
-      if(running && !this.spinning){
+      if(this.turnedAround === true){
+            
+      this.body.rotation = this.body.rotation + 180;
+      this.turnedAround = false;  
+   
+      }
+
+      if(!this.spinning){
         this.anims.play('run', true);
       }
     
     // ######################################
 
     }else if(cursors.down.isDown){ // WHEN DOWN IS PRESSED
-
+      
+      running[1] = true;
+      
+      if(this.turnedAround === false){
+      
+      this.body.rotation = this.body.rotation + 180;
+      this.turnedAround = true;
+    
+      }  
+ 
+      if(!this.spinning){
+        this.anims.play('run', true);
+      }
 
     }else{
 
@@ -140,7 +180,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(0);
       this.body.setVelocityY(0);
 
-      running = false;
+      running[0] = false;
+      running[1] = false;
 
     }
 
@@ -159,13 +200,18 @@ export default class Player extends Phaser.GameObjects.Sprite {
   update()
   {
     // player movement
-    this.running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
+    var running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
 
-    if(this.running){
+    if(running[0] === true){
+      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
+    }else if(running[1] === true){
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
     }else{
+        
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);
-    }
-  
+                
+    }    
+      
+    
   }
 }
