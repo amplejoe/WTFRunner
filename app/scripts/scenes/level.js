@@ -317,11 +317,18 @@ export default class Level extends Phaser.Scene {
 
     for (let i=0; i<this.fogSprites.length; i++) {
       this.fogSprites[i].update(t, dt);
+
+      let particles = this.fogSprites[i].getParticleOverlap(this.character);
+      if (this.character.spinning) this.fogSprites[i].deleteParticles(particles);
+
       if (canBeHit)
       {
-        let isHit = this.fogSprites[i].calcPlayerHit(this.character);
+        // let isHit = this.fogSprites[i].calcPlayerHit(this.character);
+        let isHit = particles.length > 0;
+
         if (isHit) {
           this.fogImmunity = config.FOG_IMMUNITY_MS;
+          this.fogSprites[i].damage(this.character, particles);
           // this.cameras.main.shake(1000);
         }
       }
