@@ -34,17 +34,22 @@ export default class Chartemp extends Phaser.Scene {
       
 
       this.running = this.character.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
-     
+
       
-      if(this.running){
+      if(this.running[0]){
           
           this.physics.velocityFromAngle(this.character.body.rotation - 90, 250, this.character.body.velocity);
                
+      }else if(this.running[1]){
+          
+          this.physics.velocityFromAngle(this.character.body.rotation - 90, 250, this.character.body.velocity);
+          
       }else{
           
           this.physics.velocityFromAngle(this.character.body.rotation - 90, 0, this.character.body.velocity);
           
       }
+      
      
       this.checkCollision();
       
@@ -134,11 +139,6 @@ export default class Chartemp extends Phaser.Scene {
       }
       
   }
-  
-  stopSpinning(){
-      
-      
-      
-  }
+
         
 }
