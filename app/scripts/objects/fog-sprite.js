@@ -12,8 +12,10 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
    *  @param {number} x - The horizontal coordinate relative to the scene viewport.
    *  @param {number} y - The vertical coordinate relative to the scene viewport.
    */
-  constructor(scene, x, y,speed,lifespan) {
+  constructor(scene, x, y,speed,lifespan,fogTimeout=config.FOG_TIMEOUT) {
     super(scene, x, y, 'smoke-puff');
+
+  console.log("fog: " + fogTimeout);
 
     //angle in which the emitter emitts particles
     var emmiterAngleMax=45;
@@ -37,7 +39,7 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this.emitter);
     //this.scene.physics.world.enable(this.particles);
 
-    this.fogTimeout = config.FOG_TIMEOUT;
+    this.fogTimeout = fogTimeout;
 
     //  Add this game object to the owner scene.
     scene.children.add(this);
@@ -162,9 +164,9 @@ export default class FogSprite extends Phaser.GameObjects.Sprite {
     for (let i=0; i<overlapping.length; i++)
     {
       let life = overlapping[i].life;
-      // console.log(overlapping[i]);
+      console.log(overlapping[i]);
       let curLifetime = overlapping[i].lifeCurrent;
-      // console.log();
+      console.log();
       let dmg = curLifetime/life * config.MAX_DMG;
       character.healthbar.hurt(dmg);
     }

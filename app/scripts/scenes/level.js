@@ -48,7 +48,10 @@ export default class Level extends Phaser.Scene {
 
     this.fogImmunity = 0;
     this.fogSprites = [];
-    this.createFogSprite(200,200,100,10000);
+    this.createFogSprite(0,0,100,10000);
+    this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,0,100,10000,60000 + (Math.random()-0.2) * 50000);
+    this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,90000 + (Math.random()-0.3) * 50000);
+    this.createFogSprite(0,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,120000 + (Math.random()-0.4) * 50000);
 
     if (config.DEBUG) this.setupDebug();
 
@@ -65,8 +68,8 @@ export default class Level extends Phaser.Scene {
 
   }
 
-  createFogSprite(x, y, speed, lifespan) {
-    var fog = new FogSprite(this, x, y, speed, lifespan);
+  createFogSprite(x, y, speed, lifespan, fogTimeout) {
+    var fog = new FogSprite(this, x, y, speed, lifespan, fogTimeout);
     // fog.make_damage(this.character);
     this.fogSprites.push(fog);
   }
