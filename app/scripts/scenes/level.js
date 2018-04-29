@@ -142,7 +142,7 @@ export default class Level extends Phaser.Scene {
       frameRate: 16,
       repeat: -1
     });
-    
+
     this.anims.create({
       key: 'health_item',
       frames: this.anims.generateFrameNumbers('healthUp', { start: 0, end: 3 }),
@@ -152,7 +152,7 @@ export default class Level extends Phaser.Scene {
     // & height from the Tiled tile object. Any custom properties on the tile object will also be
     // passed to the sprite creator (e.g. one of the tile object's has an alpha of 0.5).
     this.powerUpSprites = this.map.createFromObjects('spins', 'can', { key: 'can' });
-
+    this.healthSprites = this.map.createFromObjects('spins', 'health', { key: 'health' });
 
     for (let i=0;i<this.powerUpSprites.length;i++)
     {
@@ -163,6 +163,16 @@ export default class Level extends Phaser.Scene {
     }
     // this.setScale(config.PLAYER_SCALE);
     this.anims.play('spin_can', this.powerUpSprites);
+
+    for (let i=0;i<this.healthSprites.length;i++)
+    {
+      // enable physics before resizing
+      this.physics.world.enable(this.healthSprites[i]);
+      this.healthSprites[i].setScale(config.POWERUP_SCALE);
+
+    }
+    // this.setScale(config.PLAYER_SCALE);
+    this.anims.play('health_item', this.healthSprites);
 
 
     // console.log(tileset);
@@ -210,6 +220,16 @@ export default class Level extends Phaser.Scene {
       this.powerups.add(this.powerUpSprites[i]);
     }
 
+    // helthitems
+    this.healthups = this.physics.add.group();
+    for (let i=0;i<this.healthSprites.length;i++)
+    {
+
+      this.healthSprites[i].body.allowGravity = false;
+      this.healthSprites[i].body.immovable = true;
+      this.healthups.add(this.healthSprites[i]);
+    }
+
     // console.log(this.powerups.children);
     // this.collidedWithBomb = this.physics.collide(this.character , this.object);
     // this.collidedWithPowerUp = this.physics.collide(this.character , this.powerups);
@@ -247,11 +267,20 @@ export default class Level extends Phaser.Scene {
 
     this.collidedWithPowerUp = this.physics.collide(this.character , this.powerups,
       (char,obj) => {
-        console.log("helo collision!" + obj);
+        // console.log("helo collision!" + obj);
         this.character.addPowerUp();
         this.powerups.remove(obj);
         obj.destroy();
-        console.log(this.powerups);
+        // console.log(this.powerups);
+      });
+
+    this.collidedWithHealthUp = this.physics.collide(this.character , this.healthups,
+      (char,obj) => {
+        // console.log("helo collision!" + obj);
+        this.character.healthbar.heal(config.HEALTH_POWER_UP_HP);
+        this.healthups.remove(obj);
+        obj.destroy();
+        // console.log(this.powerups);
       });
   }
 

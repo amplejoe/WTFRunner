@@ -49,7 +49,7 @@ export const gameAssets = [{
   // first level
   key: 'level_1_map',
   type: 'tilemapTiledJSON',
-  url: 'tilemaps/wtf_map_100x100_2.json'
+  url: 'tilemaps/wtf_map_100x100.json'
 },{
   key: 'music1',
   type: 'audio',
