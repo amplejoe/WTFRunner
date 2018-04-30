@@ -71,6 +71,8 @@ export default class Level extends Phaser.Scene {
 
     this.currentlyDeleting = false;
 
+    this.gameOverInitiated = false;
+
   }
 
   createFogSprite(x, y, speed, lifespan, fogTimeout) {
@@ -249,6 +251,9 @@ export default class Level extends Phaser.Scene {
 
   startGameover()
   {
+    if (this.gameOverInitiated) return;
+    this.gameOverInitiated = true;
+    // console.log("Start GAMEOVER!");
     this.scene.stop('Level');
     this.scene.start('Gameover', this.score);
     // for (let i=0;i<this.fogSprites.length;i++)
@@ -364,7 +369,7 @@ export default class Level extends Phaser.Scene {
           deadParticles.destroy();
           deadFog.destroy();
           this.destroySound.play({ loop: false });
-          this.cameras.main.flash(500);
+          if (!this.gameOverInitiated) this.cameras.main.flash(500);
           this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,5000 + (Math.random()-0.3) * 10000);
           this.fogSprites.splice(toDelete[i], 1);
           this.currentlyDeleting = false;

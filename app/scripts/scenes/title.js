@@ -20,11 +20,10 @@ export default class Title extends Phaser.Scene {
     // const y_mid = this.cameras.main.height / 2;
 
     var introScreen = this.add.image(0, 0, 'intro-screen').setOrigin(0);
+    // Phaser.Display.Align.In.Center(introScreen, this.add.zone(450, 300, this.cameras.main.width, this.cameras.main.height));
 
     this.dancingChar = this.add.sprite(introScreen.width/4, introScreen.height/2, 'dance2');
     this.powerUpCan = this.add.sprite(introScreen.width/3, introScreen.height/2, 'powerUp');
-
-
 
     this.powerUpCan.anims.play('spin_can',true);
     this.powerUpCan.rotation = 0.2;
@@ -44,10 +43,9 @@ export default class Title extends Phaser.Scene {
 
     startbutton.anims.play('anim_start_button',true);
 
-    //TODO: remove in game
-    // this.input.keyboard.on('keydown_ENTER', () => {
-    //   this.startGame();
-    // });
+    this.input.keyboard.on('keydown_ENTER', () => {
+      this.startGame();
+    });
 
 
   }
@@ -55,6 +53,9 @@ export default class Title extends Phaser.Scene {
   startGame()
   {
     this.music.stop();
+    // console.log(this.input.keyboard._events);
+    this.input.keyboard._events = {};
+    // this.input.keyboard.stop();
     this.scene.stop('Title');
     this.scene.start('Level');
   }
