@@ -19,7 +19,7 @@ export default class Title extends Phaser.Scene {
     // const x_mid = this.cameras.main.width / 2;
     // const y_mid = this.cameras.main.height / 2;
 
-    var introScreen = this.add.image(0, 0, 'intro-screen').setOrigin(0);
+    let introScreen = this.add.image(0, 0, 'intro-screen').setOrigin(0);
     // Phaser.Display.Align.In.Center(introScreen, this.add.zone(450, 300, this.cameras.main.width, this.cameras.main.height));
 
     this.dancingChar = this.add.sprite(introScreen.width/4, introScreen.height/2, 'dance2');
@@ -37,8 +37,10 @@ export default class Title extends Phaser.Scene {
     var startbutton = this.add.sprite(introScreen.width * (2/3), introScreen.height * (2.5/4), 'start').setOrigin(0);
     startbutton.setScale(0.6);
     startbutton.rotation = -0.6;
-    startbutton.setOrigin(0.5, 0.5).setInteractive();
-    startbutton.on('pointerup', () => this.startGame());
+    startbutton.setOrigin(0.5, 0.5);
+    // just click anywhere instead of only button
+    introScreen.setInteractive();
+    introScreen.on('pointerup', () => this.startGame());
 
 
     startbutton.anims.play('anim_start_button',true);
@@ -52,7 +54,7 @@ export default class Title extends Phaser.Scene {
 
   startGame()
   {
-    this.music.stop();
+    this.sound.stopAll();
     // console.log(this.input.keyboard._events);
     this.input.keyboard._events = {};
     // this.input.keyboard.stop();

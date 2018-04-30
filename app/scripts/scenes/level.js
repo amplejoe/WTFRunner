@@ -58,11 +58,13 @@ export default class Level extends Phaser.Scene {
 
     if (config.DEBUG) this.setupDebug();
 
-    this.scoreDisplay = this.add.text(16, 16, 'Score: 0', {
+    this.scoreGraphic = this.add.image(16, 16,'score').setOrigin(0).setScale(0.3).setScrollFactor(0);
+    this.scoreDisplay = this.add.text(64, 14, '0', {
       fontSize: '32px',
-      padding: { x: 10, y: 5 },
+      color: '#FAEE4D',
+      padding: { x: 10, y: 5 }
       // backgroundColor: '#000000',
-      fill: '#ffffff'
+      // fill: '#ffffff'
     });
     this.scoreDisplay.setShadow(5, 5, 'rgba(0,0,0,0.8)', 15);
     this.scoreDisplay.setScrollFactor(0);
@@ -254,6 +256,7 @@ export default class Level extends Phaser.Scene {
     if (this.gameOverInitiated) return;
     this.gameOverInitiated = true;
     // console.log("Start GAMEOVER!");
+    this.sound.stopAll();
     this.scene.stop('Level');
     this.scene.start('Gameover', this.score);
     // for (let i=0;i<this.fogSprites.length;i++)
@@ -308,7 +311,7 @@ export default class Level extends Phaser.Scene {
     {
       this.scoreCounter = config.SCORE_INCREMENT_MS;
       this.score++;
-      this.scoreDisplay.setText('Score: ' + this.score);
+      this.scoreDisplay.setText(this.score);
     }
 
     // hit timout
@@ -369,6 +372,7 @@ export default class Level extends Phaser.Scene {
           deadParticles.destroy();
           deadFog.destroy();
           this.destroySound.play({ loop: false });
+          this.score += config.ENEMY_DEFEAT_SCORE;
           if (!this.gameOverInitiated) this.cameras.main.flash(500);
           this.createFogSprite(this.map.widthInPixels * config.ZOOM_FACTOR,this.map.heightInPixels * config.ZOOM_FACTOR,100,10000,5000 + (Math.random()-0.3) * 10000);
           this.fogSprites.splice(toDelete[i], 1);

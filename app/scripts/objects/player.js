@@ -16,8 +16,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
 
+    this.scene = scene;
 
-    scene.physics.world.enable(this);
+    this.scene.physics.world.enable(this);
     this.body.setCollideWorldBounds(true);
     this.body.setGravity(0);
     // this.body.setScale(config.ZOOM_FACTOR);
@@ -32,11 +33,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.amountOfPowerUps = 0;
     this.powerUps = [0,0,0];
 
+    // player sparks
+    this.playerParticles = this.scene.add.particles('fire_particle');
+    this.speedup=0;
 
     //  Add this game object to the owner scene.
-    scene.children.add(this);
+    this.scene.children.add(this);
     this.healthbar = new Healthbar(scene,scene.cameras.main.width - 70, 20, 40, 200);
-    this.scene = scene;
+
 
     this.initControls();
 
@@ -100,6 +104,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.anims.play('run', true);
     this.spinning = false;
 
+    this.emitter.explode();
+    this.speedup = 0;
+    // this.emitter.active = false;
+    // console.log(this.emitter);
+    // remove emitters
+    // this.sparks.emitters = {};
+
   }
 
   getSpinningStatus(){
@@ -127,6 +138,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.anims.play('spin', true);
       this.spinning = true;
       this.invincibleSound.play();
+
+      // player emitter
+      this.emitter = this.playerParticles.createEmitter({
+        speed: { min: 100, max: 200 },
+        angle: { min: -85, max: -95 },
+        scale: { start: 0, end: 1, ease: 'Back.easeOut' },
+        alpha: { start: 1, end: 0, ease: 'Quart.easeOut' },
+        blendMode: 'SCREEN',
+        lifespan: 1000
+      });
+      // this.emitter.reserve(1000);
+      this.emitter.startFollow(this);
+      this.speedup = config.ENERGY_SPEEDUP_VELOCITY;
 
       this.timer = this.scene.time.addEvent({ delay: config.CAN_INVINCIBILITY, callback: this.stopSpinning, callbackScope: this, repeat: false });
 
@@ -236,9 +260,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     var running = this.updatePlayerPosition(this.keySpace, this.keyEnter, this.cursors);
 
     if(running[0] === true){
-      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
+      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY+this.speedup, this.body.velocity);
     }else if(running[1] === true){
-      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY, this.body.velocity);
+      this.scene.physics.velocityFromAngle(this.body.rotation - 90, config.PLAYER_VELOCITY+this.speedup, this.body.velocity);
     }else{
 
       this.scene.physics.velocityFromAngle(this.body.rotation - 90, 0, this.body.velocity);

@@ -14,7 +14,7 @@ import * as scenes from '@/scenes';
 export const DEBUG = false;
 export const ZOOM_FACTOR = 1.0;
 export const PLAYER_SCALE = 0.35;
-export const PLAYER_VELOCITY = 450;
+export const PLAYER_VELOCITY = 400;
 export const MAX_DMG = 10;
 export const FOG_IMMUNITY_MS = 500;
 // export const MIN_DMG = 1;
@@ -23,6 +23,8 @@ export const SCORE_INCREMENT_MS = 500;
 export const POWERUP_SCALE = 0.75;
 export const CAN_INVINCIBILITY = 5000;
 export const HEALTH_POWER_UP_HP = 20;
+export const ENEMY_DEFEAT_SCORE = 20;
+export const ENERGY_SPEEDUP_VELOCITY = 50;
 
 /**
  *  Game canvas width.

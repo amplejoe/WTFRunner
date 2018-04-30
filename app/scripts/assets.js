@@ -38,7 +38,11 @@ export const gameAssets = [{
   key:'smoke-puff',
   type: 'image',
   url: 'particles/smoke-puff.png'
-}, {
+},{
+  key:'fire_particle',
+  type: 'image',
+  url: 'particles/fire.png'
+},{
   key: 'desert_tilemap',
   type: 'tilemapCSV',
   url: 'tilemaptmp/desert_level.csv'
@@ -109,6 +113,10 @@ export const gameAssets = [{
   type: 'audio',
   url: 'audio/destroy.mp3'
 },{
+  key: 'gameovermusic',
+  type: 'audio',
+  url: 'audio/Digitize2.mp3'
+},{
   // character / player
   key: 'player',
   type: 'spritesheet',
@@ -144,8 +152,11 @@ export const gameAssets = [{
     frameWidth : 64,
     frameHeight : 64
   }
-}, {
+},{
   key: 'retry',
+  type: 'image'
+},{
+  key: 'score',
   type: 'image'
 },{
   // healthUp for the character
