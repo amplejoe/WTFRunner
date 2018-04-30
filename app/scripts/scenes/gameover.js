@@ -53,7 +53,10 @@ export default class Gameover extends Phaser.Scene {
     startbutton.setOrigin(0.5).setInteractive();
     // startbutton.rotation = -1;
     startbutton.scaleX *= -1;
-    startbutton.on('pointerup', () => {this.scene.start('Title');});
+    startbutton.on('pointerup', () => {
+      this.scene.stop('Gameover');
+      this.scene.start('Title');
+    });
 
 
   }

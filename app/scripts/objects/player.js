@@ -24,29 +24,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.setScale(config.PLAYER_SCALE);
 
-    scene.anims.create({
-      key: 'run',
-      frames: scene.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
-      frameRate: 15,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: 'spin',
-      frames: scene.anims.generateFrameNumbers('player_spin', { start: 0, end: 8}),
-      frameRate: 30,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: 'dance',
-      frames: scene.anims.generateFrameNumbers('player', {frames: [1,2,3,2,1,6,5,4,5,6]}),
-      frameRate: 10,
-      repeat: -1
-    });
-
-
-
     this.recievedBomb = false;
     this.recievedPowerUp = false;
     this.spinning = false;

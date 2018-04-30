@@ -140,17 +140,7 @@ export default class Level extends Phaser.Scene {
     // var tiles = map.addTilesetImage('ground_1x1');
     // var layer = map.createStaticLayer('Tile Layer', tiles);
     // this.cans = this.physics.add.group();
-    this.anims.create({
-      key: 'spin_can',
-      frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3 }),
-      frameRate: 16,
-      repeat: -1
-    });
 
-    this.anims.create({
-      key: 'health_item',
-      frames: this.anims.generateFrameNumbers('healthUp', { start: 0, end: 3 }),
-    });
 
     // We convert all of the Tiled objects with an name 'can' (ID of 5) into sprites. They will get their width
     // & height from the Tiled tile object. Any custom properties on the tile object will also be
@@ -259,6 +249,7 @@ export default class Level extends Phaser.Scene {
 
   startGameover()
   {
+    this.scene.stop('Level');
     this.scene.start('Gameover', this.score);
     // for (let i=0;i<this.fogSprites.length;i++)
     //   this.fogSprites[i.destroy];

@@ -27,6 +27,50 @@ export default class SplashScreen extends Phaser.Scene {
 
   }
 
+  setupGameAnims(){
+
+    // character
+    this.anims.create({
+      key: 'run',
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
+      frameRate: 15,
+      repeat: -1
+    });
+    this.anims.create({
+      key: 'spin',
+      frames: this.anims.generateFrameNumbers('player_spin', { start: 0, end: 8}),
+      frameRate: 30,
+      repeat: -1
+    });
+    this.anims.create({
+      key: 'dance',
+      frames: this.anims.generateFrameNumbers('player', {frames: [1,2,3,2,1,6,5,4,5,6]}),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    // items
+    this.anims.create({
+      key: 'spin_can',
+      frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3 }),
+      frameRate: 16,
+      repeat: -1
+    });
+    this.anims.create({
+      key: 'health_item',
+      frames: this.anims.generateFrameNumbers('healthUp', { start: 0, end: 3 }),
+      frameRate: 16,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'anim_start_button',
+      frames: this.anims.generateFrameNumbers('start', {frames: [0,1]}),
+      frameRate: 10,
+      repeat: -1
+    });
+  }
+
   //  ------------------------------------------------------------------------
 
   /**
@@ -64,6 +108,7 @@ export default class SplashScreen extends Phaser.Scene {
 
     //  When the asset loader fulfills its job, start the Game scene.
     scene.load.on('complete', () => {
+      this.setupGameAnims();
       this.scene
         .remove(scene)
         .start('Title');

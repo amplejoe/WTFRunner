@@ -24,43 +24,39 @@ export default class Title extends Phaser.Scene {
     this.dancingChar = this.add.sprite(introScreen.width/4, introScreen.height/2, 'dance2');
     this.powerUpCan = this.add.sprite(introScreen.width/3, introScreen.height/2, 'powerUp');
 
-    var startbutton = this.add.sprite(introScreen.width * (2/3), introScreen.height * (2.5/4), 'start').setOrigin(0);
-    startbutton.setScale(0.6);
-    startbutton.rotation = -0.6;
-    startbutton.setOrigin(0.5, 0.5).setInteractive();
-    startbutton.on('pointerup', () => this.scene.start('Level'));
 
-    this.anims.create({
-      key: 'spin_can2',
-      frames: this.anims.generateFrameNumbers('powerUp', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
 
-    this.anims.create({
-      key: 'dance2',
-      frames: this.anims.generateFrameNumbers('player', {frames: [1,2,3,2,1,6,5,4,5,6]}),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'startbutton',
-      frames: this.anims.generateFrameNumbers('start', {frames: [0,1]}),
-      frameRate: 10,
-      repeat: -1
-    });
-    startbutton.anims.play('startbutton',true);
-
-    this.powerUpCan.anims.play('spin_can2',true);
+    this.powerUpCan.anims.play('spin_can',true);
     this.powerUpCan.rotation = 0.2;
 
-    this.dancingChar.anims.play('dance2',true);
+    this.dancingChar.anims.play('dance',true);
     this.dancingChar.rotation = 0.5;
 
     this.music = this.sound.add('startMusic');
     this.music.play({ loop: true });
 
+    var startbutton = this.add.sprite(introScreen.width * (2/3), introScreen.height * (2.5/4), 'start').setOrigin(0);
+    startbutton.setScale(0.6);
+    startbutton.rotation = -0.6;
+    startbutton.setOrigin(0.5, 0.5).setInteractive();
+    startbutton.on('pointerup', () => this.startGame());
+
+
+    startbutton.anims.play('anim_start_button',true);
+
+    //TODO: remove in game
+    // this.input.keyboard.on('keydown_ENTER', () => {
+    //   this.startGame();
+    // });
+
+
+  }
+
+  startGame()
+  {
+    this.music.stop();
+    this.scene.stop('Title');
+    this.scene.start('Level');
   }
 
   /**
