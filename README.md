@@ -12,7 +12,9 @@ Today Mr. Wobble decided to stop cursing. It's been one of his bad habits ...  :
 
 To be successful, he decided to start his good deed with only saying "What the Fooooog!!!", but little did he know his friendly neighborhood fog (who are in no way connected to the chili) did not enjoy it, and thus begins the endless adventure of running away from a gang of angry fog! 
 
-# How to run game
+Play the game online [here]( https://amplejoe.github.io/WTFRunner/).
+
+# How to run game (from repository)
 
 Install [nodejs](https://nodejs.org) (> 6.0)
 
