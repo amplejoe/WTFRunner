@@ -28,7 +28,7 @@ export default class Gameover extends Phaser.Scene {
     this.add.image(0, 0, 'gameover').setOrigin(0);
 
     let msg = this.endScore;
-    const label = this.add.text(x_mid * 1.04, 91, msg, {
+    const label = this.add.text(x_mid * 1.04, 93, msg, {
       font: '60px Arial',
       color: '#FAEE4D',
       stroke: 'black',

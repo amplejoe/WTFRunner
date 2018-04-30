@@ -14,5 +14,5 @@ import * as config from '@/config';
 export function boot() {
   return new Phaser.Game(config);
 }
-
+window.focus();
 boot();
