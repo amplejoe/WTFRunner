@@ -14,9 +14,9 @@ To be successful, he decided to start his good deed with only saying "What the F
 
 ## How to run
 
-Install nodejs (> 6.0)
+Install [nodejs](https://nodejs.org) (> 6.0)
 
-Change into repository directory and install necessary packages
+Change into cloned repository directory and install necessary packages
 ```sh
 npm install
 ```
@@ -30,7 +30,7 @@ npm start
 
 The following package scripts are also available to manage your project:
 
->   **HINT**: If you prefer yarn, run these scripts with `yarn run` instead.
+>   **HINT**: If you prefer yarn, run these scripts with `yarn` instead.
 
 ```sh
 npm run clean     # Manually deletes previous distribution files.
