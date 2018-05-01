@@ -299,6 +299,9 @@ export default class Level extends Phaser.Scene {
      *  @param {number} dt - Time elapsed since last update.
      */
   update(t, dt) {
+
+    if (this.gameOverInitiated) return;
+
     // this.controls.update(dt);
     this.character.update();
 
